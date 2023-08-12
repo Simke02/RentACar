@@ -1,0 +1,62 @@
+create table nalog (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	email VARCHAR(100) NOT NULL UNIQUE,
+	sifra VARCHAR(50),
+	ime VARCHAR(50) NOT NULL,
+	prezime VARCHAR(50) NOT NULL,
+	jmbg VARCHAR(13),
+	drzava VARCHAR(50) NOT NULL,
+	grad VARCHAR(100) NOT NULL,
+	adresa VARCHAR(100) NOT NULL,
+	telefon VARCHAR(50) NOT NULL
+);
+
+create table administrator (
+	pozicija VARCHAR(100) NOT NULL
+)inherits (nalog);
+
+create table korisnik (
+	broj_pasosa VARCHAR(20),
+	broj_vozacke VARCHAR(20) NOT NULL
+)inherits (nalog);
+
+ALTER TABLE korisnik ADD UNIQUE (id);
+
+create table automobil (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	marka VARCHAR(100) NOT NULL,
+	model VARCHAR(100) NOT NULL,
+	broj_sedista VARCHAR(1) NOT NULL,
+	snaga_motora VARCHAR(4) NOT NULL,
+	gorivo VARCHAR(20) NOT NULL,
+	klima BOOLEAN NOT NULL,
+	registracija VARCHAR(20) NOT NULL UNIQUE,
+	tip VARCHAR(20) NOT NULL,
+	transmisija VARCHAR(20) NOT NULL,
+	godiste VARCHAR(4) NOT NULL,
+	dodatno_osiguranje INTEGER NOT NULL,
+	cena INTEGER NOT NULL,
+	slika VARCHAR(100) NOT NULL
+);
+
+create table rezervacija (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	ukupna_cena INTEGER NOT NULL,
+	vreme_izdavanja TIMESTAMP NOT NULL,
+	vreme_vracanja TIMESTAMP NOT NULL,
+	dodatno_osiguranje BOOLEAN NOT NULL,
+	korisnik_id BIGINT REFERENCES korisnik(id),
+	automobil_id BIGINT REFERENCES automobil(id)
+);
+
+create table kalendar (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	datum TIMESTAMP NOT NULL
+);
+
+create table dan (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	vreme_vracanja TIME NOT NULL,
+	automobil_id BIGINT REFERENCES automobil(id),
+	kalendar_id BIGINT REFERENCES kalendar(id)
+);
