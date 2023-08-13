@@ -4,6 +4,12 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { NalogModule } from './nalog/nalog.module';
+import { AdministratorModule } from './administrator/administrator.module';
+import { KorisnikModule } from './korisnik/korisnik.module';
+import { AutomobilModule } from './automobil/automobil.module';
+import { RezervacijaModule } from './rezervacija/rezervacija.module';
+import { KalendarModule } from './kalendar/kalendar.module';
+import { DanModule } from './dan/dan.module';
 
 @Module({
   imports: [
@@ -14,7 +20,13 @@ import { NalogModule } from './nalog/nalog.module';
       autoLoadEntities: true,
       synchronize: true
     }),
-    NalogModule
+    NalogModule,
+    AdministratorModule,
+    KorisnikModule,
+    AutomobilModule,
+    RezervacijaModule,
+    KalendarModule,
+    DanModule
   ],
   controllers: [AppController],
   providers: [AppService],

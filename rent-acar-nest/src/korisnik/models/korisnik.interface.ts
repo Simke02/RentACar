@@ -1,4 +1,4 @@
-export interface AdministratorI {
+export interface KorisnikI {
     id: number;
     email: string;
     sifra: string;
@@ -9,5 +9,6 @@ export interface AdministratorI {
     grad: string;
     adresa: string;
     telefon: string;
-    pozicija: string;
+    broj_pasosa: string;
+    broj_vozacke: string;
 }
