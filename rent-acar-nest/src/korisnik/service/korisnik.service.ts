@@ -20,4 +20,8 @@ export class KorisnikService{
     VratiSveKorisnike(): Observable<KorisnikI[]> {
         return from(this.korisnikRepository.find());
     }
+
+    VratiKorisnika(email: string): Promise<KorisnikI> {
+        return this.korisnikRepository.findOne({where: {email: email}});
+    }
 }

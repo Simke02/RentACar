@@ -10,6 +10,7 @@ import { AutomobilModule } from './automobil/automobil.module';
 import { RezervacijaModule } from './rezervacija/rezervacija.module';
 import { KalendarModule } from './kalendar/kalendar.module';
 import { DanModule } from './dan/dan.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { DanModule } from './dan/dan.module';
     AutomobilModule,
     RezervacijaModule,
     KalendarModule,
-    DanModule
+    DanModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

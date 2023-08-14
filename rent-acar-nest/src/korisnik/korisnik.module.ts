@@ -8,7 +8,8 @@ import { KorisnikController } from "./controller/korisnik.controller";
     imports: [
         TypeOrmModule.forFeature([Korisnik])
     ],
-    providers: [KorisnikService],
-    controllers: [KorisnikController]
+    providers: [KorisnikService, KorisnikController],
+    controllers: [KorisnikController],
+    exports: [KorisnikService]
 })
 export class KorisnikModule {}
