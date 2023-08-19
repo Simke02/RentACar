@@ -31,4 +31,6 @@ export class Automobil{
     cena: number;
     @Column({type: "varchar", length: 100})
     slika: string;
+    @Column({type: "varchar", length: 100})
+    lokacija: string;
 }

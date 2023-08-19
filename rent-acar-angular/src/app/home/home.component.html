@@ -1,0 +1,240 @@
+<!-- hero section start  -->
+<section id="hero" class=" position-relative overflow-hidden">
+    <div class="pattern-overlay pattern-right position-absolute">
+        <img src="assets/images/hero-pattern-right.png" alt="pattern">
+    </div>
+    <div class="pattern-overlay pattern-left position-absolute">
+        <img src="assets/images/hero-pattern-left.png" alt="pattern">
+    </div>
+    <div class="hero-content container text-center">
+        <div class="row">
+            <div class="detail mb-4">
+                <h1 class="">Find your <span class="text-primary"> rental car </span> </h1>
+                <p class="hero-paragraph">We have many best rental car collections.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- search section start  -->
+<section id="search">
+    <div class="container search-block p-5">
+
+        <form class="row">
+            <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
+                <label for="vehicle" class="label-style text-capitalize form-label">Vehicle type</label>
+                <div class="input-group date ">
+                    <input type="text" class="form-control p-3 " id="vehicle" placeholder="Select Car Group" />
+                    <span class="search-icon-position position-absolute p-3 ">
+                        <iconify-icon class="search-icons" icon="solar:bus-outline"></iconify-icon>
+                    </span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
+                <label for="location" class="label-style text-capitalize form-label">Picking up location</label>
+                <div class="input-group date">
+                    <input type="text" class="form-control p-3 position-relative" id="location"
+                        placeholder="Airport or anywhere" />
+                    <span class="search-icon-position position-absolute p-3 ">
+                        <iconify-icon class="search-icons" icon="solar:map-arrow-square-outline"></iconify-icon>
+                    </span>
+
+
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
+                <label for="pick-up-date" class="label-style text-capitalize form-label">Picking up date</label>
+                <div class="input-group date" id="datepicker1">
+                    <input type="text" class="form-control p-3" id="pick-up-date"/>
+                    
+                    <span class="input-group-append">
+                        <span class="search-icon-position position-absolute p-3">
+                            <iconify-icon class="search-icons" icon="solar:calendar-broken"></iconify-icon>
+                        </span>
+                    </span>
+
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
+                <label for="return-date" class="label-style text-capitalize form-label">Returning date</label>
+                <div class="input-group date" id="datepicker2">
+                    <input type="text" class="form-control p-3" id="return-date" />
+
+                    <span class="input-group-append">
+                        <span class="search-icon-position position-absolute p-3">
+                            <iconify-icon class="search-icons" icon="solar:calendar-broken"></iconify-icon>
+                        </span>
+                    </span>
+
+                </div>
+            </div>
+        </form>
+
+        <div class="d-grid gap-2 mt-4">
+            <button class="btn btn-primary " type="button" routerLink="/automobili" (click)="pronadjiAuto()">Find your car</button>
+        </div>
+    </div>
+
+</section>
+
+<!-- process section start  -->
+<section id="process">
+    <div class=" process-content container">
+        <h2 class=" text-center my-5">Our renting <span class="text-primary"> process </span> </h2>
+        <img class="progress-img" src="assets/images/process-line.png" alt="">
+        <div class="row">
+            <div class="col-6 col-lg-3 text-start my-4">
+                <iconify-icon class="process-icon" icon="solar:bus-outline"></iconify-icon>
+                <h5 class="text-uppercase"> Choose a vehicle </h5>
+                <p>Sed euismod mauris corper libero.</p>
+            </div>
+
+            <div class="col-6 col-lg-3 text-start my-4">
+                <iconify-icon class="process-icon" icon="mdi:calendar-tick-outline"></iconify-icon>
+                <h5 class="text-uppercase"> Pick location & date </h5>
+                <p>Nisi maecenas fermentum neque.</p>
+            </div>
+
+            <div class="col-6 col-lg-3 text-start my-4">
+                <iconify-icon class="process-icon" icon="mdi:book-lock-outline"></iconify-icon>
+                <h5 class="text-uppercase"> Book your car </h5>
+                <p>Mauris corper accumsan urna sed.</p>
+            </div>
+
+            <div class="col-6 col-lg-3 text-start my-4">
+                <iconify-icon class="process-icon" icon="icons8:finish-flag"></iconify-icon>
+                <h5 class="text-uppercase"> Finish process </h5>
+                <p>Orci duis ut lectus metus nam sette.</p>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+
+<!-- faq section start  -->
+<section id="faq">
+
+    <div class="container my-5 py-5 ">
+        <h2 class=" text-center my-5">We’ve got <span class="text-primary"> answers</span> </h2>
+
+
+        <div class="accordion col-md-8 offset-md-2" id="accordionPanelsStayOpenExample">
+
+            <div class="accordion-item mt-3">
+                <h5 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseOne">
+                        Why to believe with GoCar Car rental service ?
+                    </button>
+                </h5>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        <p>Diam orci gravida convallis at enim risus viverra. Hac mi tristique in aliquet tincidunt
+                            nam lectus nec. Placerat interdum auctor facilisi massa laoreet hendrerit posuere a.
+                            Tristique ultricies consectetu at.</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="accordion-item mt-3">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseTwo">
+                        How to know which hosting service provider is best?
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                    aria-labelledby="panelsStayOpen-headingTwo">
+                    <div class="accordion-body">
+                        <p>Diam orci gravida convallis at enim risus viverra. Hac mi tristique in aliquet tincidunt
+                            nam lectus
+                            nec. Placerat interdum auctor facilisi massa laoreet hendrerit posuere a. Tristique
+                            ultricies consectetu
+                            at.</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="accordion-item mt-3">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseThree">
+                        What are the special features of hosthub?
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                    aria-labelledby="panelsStayOpen-headingThree">
+                    <div class="accordion-body">
+                        <p>Diam orci gravida convallis at enim risus viverra. Hac mi tristique in aliquet tincidunt
+                            nam lectus
+                            nec. Placerat interdum auctor facilisi massa laoreet hendrerit posuere a. Tristique
+                            ultricies consectetu
+                            at.</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+
+
+
+        </div>
+
+    </div>
+</section>
+
+<section id="footer">
+    <div class="container footer-container mt-5">
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 my-5 py-5 ">
+
+            <div class=" col-md-4 mt-5 mt-md-0 ">
+                <img src="assets/images/logo.png" alt="">
+                <p class="py-3">Vel non nibh vestibulum massa ullam corper bib endum ultrices venenatis, id id sed
+                    mass.</p>
+                <div class="d-flex align-items-center ">
+                    <a href="#" target="_blank"><iconify-icon class="social-link-icon active pe-4"
+                            icon="mdi:facebook"></iconify-icon></a>
+                    <a href="#" target="_blank"><iconify-icon class="social-link-icon pe-4"
+                            icon="mdi:twitter"></iconify-icon></a>
+                    <a href="#" target="_blank"><iconify-icon class="social-link-icon pe-4"
+                            icon="mdi:instagram"></iconify-icon></a>
+                    <a href="#" target="_blank"><iconify-icon class="social-link-icon pe-4"
+                            icon="mdi:linkedin"></iconify-icon></a>
+                    <a href="#" target="_blank"><iconify-icon class="social-link-icon pe-4"
+                            icon="mdi:youtube"></iconify-icon></a>
+                </div>
+
+            </div>
+
+            <div class="col-md-7 offset-md-1 mt-5">
+                <ul class="footer-nav list-unstyled ">
+                    <li class="nav-item me-2 mb-3">
+                        <a class="nav-link px-4" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item me-2 mb-3">
+                        <a class="nav-link px-4" href="#">Booking</a>
+                    </li>
+                    <li class="nav-item me-2 mb-3">
+                        <a class="nav-link px-4" href="#">About</a>
+                    </li>
+                    <li class="nav-item me-2 mb-3">
+                        <a class="nav-link px-4" href="#">Cars</a>
+                    </li>
+                    <li class="nav-item me-2 mb-3">
+                        <a class="nav-link px-4" href="#">Services</a>
+                    </li>
+                    <li class="nav-item me-2 mb-3">
+                        <a class="nav-link px-4" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+        </footer>
+    </div>
+</section>
