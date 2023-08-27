@@ -1,30 +1,32 @@
+<div class=" container  py-5 my-5">
 <h2 class=" text-center my-5">cars for <span class="text-primary"> rental </span> </h2>
 
 <div class="container">
     <div class="row">
-        <div *ngFor="let auto of automobili" class="col-md-6 col-xl-4">
-            <img [src]='auto.slika' class="card-img-top" alt="...">
-            <div class="card-body p-4">
-                <h4 class="card-title">{{auto.marka}} {{auto.model}}</h4>
-                <div class="card-text ">
-                    <ul class="d-flex list-unstyled">
-                        <li class="rental-list">
-                            <p>{{auto.tip}}</p>
-                        </li>
-                        <li class="rental-list"> <img src="assets/images/dot.png" class="px-3" alt=""></li>
-                        <li class="rental-list"> {{auto.transmisija}}</li>
-                        <li class="rental-list"> <img src="assets/images/dot.png" class="px-3" alt=""></li>
-                        <li class="rental-list"> {{auto.broj_sedista}} Putnika </li>
-                        <li class="rental-list"> <img src="assets/images/dot.png" class="px-3" alt=""></li>
-                        <li class="rental-list"> {{auto.gorivo}} </li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <h3 class="pt-2">{{auto.cena}}rsd <span class="rental-price">/dan</span></h3>
-                    <button class="btn btn-primary" routerLink="/osiguranje">rezerviši </button>
+            <div *ngFor="let auto of automobili; let i = index" class="col-md-6 col-xl-4">
+                <img [src]='auto.slika' class="card-img-top" alt="...">
+                <div class="card-body p-4">
+                    <h4 class="card-title">{{auto.marka}} {{auto.model}}</h4>
+                    <div class="card-text ">
+                        <ul class="d-flex list-unstyled">
+                            <li class="rental-list">
+                                <p>{{auto.tip}}</p>
+                            </li>
+                            <li class="rental-list"> <img src="assets/images/dot.png" class="px-3" alt=""></li>
+                            <li class="rental-list"> {{auto.transmisija}}</li>
+                            <li class="rental-list"> <img src="assets/images/dot.png" class="px-3" alt=""></li>
+                            <li class="rental-list"> {{auto.broj_sedista}} Putnika </li>
+                            <li class="rental-list"> <img src="assets/images/dot.png" class="px-3" alt=""></li>
+                            <li class="rental-list"> {{auto.gorivo}} </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h3 class="pt-2">{{auto.cena}}rsd <span class="rental-price">/dan</span></h3>
+                        <button class="btn btn-primary" routerLink="/osiguranje" (click)="rezervisi(i)">rezerviši </button>
+                    </div>
                 </div>
             </div>
-        </div>               
     </div>
+</div>
 </div>

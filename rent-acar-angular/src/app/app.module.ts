@@ -1,6 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule, isNgrxMockEnvironment } from '@ngrx/store';
@@ -15,6 +14,9 @@ import { HeaderComponent } from './header/header.component';
 import { AboutComponent } from './about/about.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CorsInterceptor } from './services/corsInterceptor';
+import { ReactiveFormsModule} from '@angular/forms'
+import { AutomobilEffect } from './automobili/store/automobil.effects';
+import { automobilReducer } from './automobili/store/automobil.reducer';
 
 @NgModule({
   declarations: [
@@ -29,10 +31,11 @@ import { CorsInterceptor } from './services/corsInterceptor';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({stanje: automobilReducer}),
+    EffectsModule.forRoot([AutomobilEffect]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: CorsInterceptor, multi: true }],
   bootstrap: [AppComponent],

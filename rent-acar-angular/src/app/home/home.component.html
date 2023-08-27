@@ -17,14 +17,19 @@
 </section>
 
 <!-- search section start  -->
-<section id="search">
+<form [formGroup]="pronadjiAutoForm" (ngSubmit)="pronadjiAuto()">
     <div class="container search-block p-5">
 
         <form class="row">
             <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
                 <label for="vehicle" class="label-style text-capitalize form-label">Vehicle type</label>
                 <div class="input-group date ">
-                    <input type="text" class="form-control p-3 " id="vehicle" placeholder="Select Car Group" />
+                    <!-- <input type="text" class="form-control p-3 " id="tip" placeholder="Select Car Group" -->
+                    <!-- formControlName="tip" /> -->
+                    <select class="form-control" id="tip" formControlName="tip">
+                        <option value="-1">Select Car Group</option>
+                        <option *ngFor="let tip of tipoviAuto">{{tip}}</option>
+                      </select>
                     <span class="search-icon-position position-absolute p-3 ">
                         <iconify-icon class="search-icons" icon="solar:bus-outline"></iconify-icon>
                     </span>
@@ -33,8 +38,12 @@
             <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
                 <label for="location" class="label-style text-capitalize form-label">Picking up location</label>
                 <div class="input-group date">
-                    <input type="text" class="form-control p-3 position-relative" id="location"
-                        placeholder="Airport or anywhere" />
+                    <!-- <input type="text" class="form-control p-3 position-relative" id="lokacija" -->
+                        <!-- placeholder="Airport or anywhere" formControlName="lokacija" /> -->
+                        <select class="form-control" id="lokacija" formControlName="lokacija">
+                            <option value="-1">Airport or anywhere</option>
+                            <option *ngFor="let lokacija of lokacije">{{lokacija}}</option>
+                          </select>
                     <span class="search-icon-position position-absolute p-3 ">
                         <iconify-icon class="search-icons" icon="solar:map-arrow-square-outline"></iconify-icon>
                     </span>
@@ -45,37 +54,22 @@
             <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
                 <label for="pick-up-date" class="label-style text-capitalize form-label">Picking up date</label>
                 <div class="input-group date" id="datepicker1">
-                    <input type="text" class="form-control p-3" id="pick-up-date"/>
-                    
-                    <span class="input-group-append">
-                        <span class="search-icon-position position-absolute p-3">
-                            <iconify-icon class="search-icons" icon="solar:calendar-broken"></iconify-icon>
-                        </span>
-                    </span>
-
+                    <input type="datetime-local" class="form-control p-3" id="vreme_i" formControlName="vreme_i"/>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
                 <label for="return-date" class="label-style text-capitalize form-label">Returning date</label>
                 <div class="input-group date" id="datepicker2">
-                    <input type="text" class="form-control p-3" id="return-date" />
-
-                    <span class="input-group-append">
-                        <span class="search-icon-position position-absolute p-3">
-                            <iconify-icon class="search-icons" icon="solar:calendar-broken"></iconify-icon>
-                        </span>
-                    </span>
-
+                    <input type="datetime-local" class="form-control p-3" id="vreme_v" formControlName="vreme_v"/>
                 </div>
             </div>
         </form>
 
         <div class="d-grid gap-2 mt-4">
-            <button class="btn btn-primary " type="button" routerLink="/automobili" (click)="pronadjiAuto()">Find your car</button>
+            <button [disabled]="!pronadjiAutoForm.valid" class="btn btn-primary " type="submit">Find your car</button>
         </div>
     </div>
-
-</section>
+</form>
 
 <!-- process section start  -->
 <section id="process">

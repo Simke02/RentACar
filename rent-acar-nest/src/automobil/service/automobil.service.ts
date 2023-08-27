@@ -17,7 +17,13 @@ export class AutomobilService{
         return from(this.automobilRepository.save(automobil));
     }
 
-    VratiSveAutomobile(): Observable<AutomobilI[]> {
+    VratiOdgovarajuceAutomobile(tip: string, lokacija: string): Observable<AutomobilI[]> {
+        return from(this.automobilRepository.find({
+            where: {tip: tip, lokacija: lokacija}
+        }));
+    }
+
+    VratiSveAutomobile(): Observable<AutomobilI[]>{
         return from(this.automobilRepository.find());
     }
 }

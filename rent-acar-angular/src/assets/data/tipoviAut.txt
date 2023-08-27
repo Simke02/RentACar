@@ -1,0 +1,8 @@
+Limuzina
+Hečbek
+Karavan
+Kupe
+Kabriolet
+MiniVan
+Džip/SUV
+Pickup
