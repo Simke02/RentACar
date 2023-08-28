@@ -17,6 +17,7 @@ import { CorsInterceptor } from './services/corsInterceptor';
 import { ReactiveFormsModule} from '@angular/forms'
 import { AutomobilEffect } from './automobili/store/automobil.effects';
 import { automobilReducer } from './automobili/store/automobil.reducer';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { automobilReducer } from './automobili/store/automobil.reducer';
     OsiguranjeComponent,
     RezervacijaComponent,
     HeaderComponent,
-    AboutComponent
+    AboutComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,

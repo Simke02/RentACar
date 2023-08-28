@@ -13,7 +13,8 @@ const inicijalnoStanje: Stanje = {
 export const automobilReducer = createReducer(
     inicijalnoStanje,
     on(AutomobilActions.pribavljanjeUspelo, (stanje, action)=>
-        ({...stanje, automobili: [...stanje.automobili, ...action.automobili]}))
+        ({...stanje, automobili: [...stanje.automobili, ...action.automobili]})),
+    on(AutomobilActions.ocisti, stanje => ({...stanje, automobili: []}))
 );
 
 /*{id: 1, marka:"a", model:"a", broj_sedista:"2", snaga_motora:"a", gorivo:"a", klima:true, registracija:"a", tip:"a", transmisija:"a", godiste:"a", dodatno_osiguranje:1, cena:1, slika:"a", lokacija:"a"}*/

@@ -14,3 +14,7 @@ export const pribavljanjeUspelo = createAction(
 export const pribavljanjeNijeUspelo = createAction(
     '[Automobil] pribavljanjeNijeUspelo'
 )
+
+export const ocisti = createAction(
+    '[Automobil] ocisti'
+)

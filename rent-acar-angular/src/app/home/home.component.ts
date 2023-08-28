@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Stanje } from '../automobili/store/automobil.reducer';
 import { Store } from '@ngrx/store';
 import { inicijalizacija } from '../automobili/store/automobil.action';
+import { RezervisiService } from '../services/rezervisi.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private homeService: HomeService,
               private router: Router,
-              private store: Store<Stanje>) {}
+              private store: Store<Stanje>,
+              private rezervisiService: RezervisiService) {}
 
   pronadjiAutoForm: FormGroup = new FormGroup({});
   tipoviAuto: string[] = [];
@@ -61,8 +63,11 @@ export class HomeComponent implements OnInit {
     const vreme_i = this.pronadjiAutoForm.get('vreme_i')?.value;
     const vreme_v = this.pronadjiAutoForm.get('vreme_v')?.value;
 
-    console.log(tip, lokacija, vreme_i, vreme_v);
-    this.store.dispatch(inicijalizacija({tip, lokacija, vreme_i, vreme_v}));
-    this.router.navigate(['/automobili']);
+    this.rezervisiService.sacuvajVremeIzdavanja(vreme_i);
+    this.rezervisiService.sacuvajVremeVracanja(vreme_v)
+
+    //this.store.dispatch(inicijalizacija({tip, lokacija, vreme_i, vreme_v}));
+    this.rezervisiService.sacuvajNoviZahtev();
+    this.router.navigate(['/automobili', tip, lokacija]);
   }
 }

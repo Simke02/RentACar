@@ -6,21 +6,21 @@ import { Automobil } from '../models/automobili.model';
 })
 export class RezervisiService {
     sacuvajAuto(auto: Automobil){
-        localStorage.setItem('auto', JSON.stringify(auto));
+        sessionStorage.setItem('auto', JSON.stringify(auto));
     }
 
     vratiAuto(): any {
-        const auto = localStorage.getItem('auto');
+        const auto = sessionStorage.getItem('auto');
         if(auto!=null)
             return JSON.parse(auto);
     }
 
     obrisiAuto() {
-        localStorage.removeItem('auto');
+        sessionStorage.removeItem('auto');
     }
 
     vratiOsiguranje(): number {
-        const vrednost = localStorage.getItem('auto');
+        const vrednost = sessionStorage.getItem('auto');
         if(vrednost!=null){
             const auto: Automobil = JSON.parse(vrednost);
             return auto.dodatno_osiguranje;
@@ -29,16 +29,58 @@ export class RezervisiService {
     }
 
     sacuvajBoolOsiguranje(daLi: boolean) {
-        localStorage.setItem('osiguranjeBool', JSON.stringify(daLi));
+        sessionStorage.setItem('osiguranjeBool', JSON.stringify(daLi));
     }
 
     vratiBoolOsiguranje(): any {
-        const osigB = localStorage.getItem('osiguranjeBool');
+        const osigB = sessionStorage.getItem('osiguranjeBool');
         if(osigB!=null)
             return JSON.parse(osigB);
     }
 
     obrisiBoolOsiguranje() {
-        localStorage.removeItem('osiguranjeBool');
+        sessionStorage.removeItem('osiguranjeBool');
+    }
+
+    sacuvajVremeIzdavanja(vreme: Date){
+        sessionStorage.setItem('vremeIzdavanja', JSON.stringify(vreme));
+    }
+
+    sacuvajVremeVracanja(vreme: Date){
+        sessionStorage.setItem('vremeVracanja', JSON.stringify(vreme));
+    }
+
+    vratiVremeIzdavanja(): any {
+        const vreme = sessionStorage.getItem('vremeIzdavanja');
+        if(vreme!=null)
+            return JSON.parse(vreme);
+    }
+
+    vratiVremeVracanja(): any {
+        const vreme = sessionStorage.getItem('vremeVracanja');
+        if(vreme!=null)
+            return JSON.parse(vreme);
+    }
+
+    obrisiVremeIzdavanja(){
+        sessionStorage.removeItem('vremeIzdavanja');
+    }
+
+    obrisiVremeVracanja(){
+        sessionStorage.removeItem('vremeVracanja');
+    }
+
+    sacuvajNoviZahtev(){
+        sessionStorage.setItem('noviZahtev', JSON.stringify(true));
+    }
+
+    vratiNoviZahtev(): any {
+        const zahtev = sessionStorage.getItem('noviZahtev');
+        if(zahtev!=null)
+            return JSON.parse(zahtev);
+    }
+
+    izmeniNoviZahtev(){
+        sessionStorage.setItem('noviZahtev',JSON.stringify(false));
     }
 }

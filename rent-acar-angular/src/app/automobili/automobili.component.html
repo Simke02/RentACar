@@ -1,6 +1,15 @@
 <div class=" container  py-5 my-5">
 <h2 class=" text-center my-5">cars for <span class="text-primary"> rental </span> </h2>
 
+<div class="">
+    <select class="btn btn-outline-darker-pink prikazi-dugme" (change)="priSelekciji($any($event.target).value)">
+        <option value="0">{{'Cena (najviša)'}}</option>
+        <option value="1">{{'Cena (najniža)'}}</option>
+        <option value="2">{{'Naziv (A-Z)'}}</option>
+        <option value="3">{{'Naziv (Z-A)'}}</option>
+    </select>
+</div>
+
 <div class="container">
     <div class="row">
             <div *ngFor="let auto of automobili; let i = index" class="col-md-6 col-xl-4">
@@ -12,11 +21,11 @@
                             <li class="rental-list">
                                 <p>{{auto.tip}}</p>
                             </li>
-                            <li class="rental-list"> <img src="assets/images/dot.png" class="px-3" alt=""></li>
+                            <li class="rental-list"> <img src="../../assets/images/dot.png" class="px-3" alt=""></li>
                             <li class="rental-list"> {{auto.transmisija}}</li>
-                            <li class="rental-list"> <img src="assets/images/dot.png" class="px-3" alt=""></li>
+                            <li class="rental-list"> <img src="../../assets/images/dot.png" class="px-3" alt=""></li>
                             <li class="rental-list"> {{auto.broj_sedista}} Putnika </li>
-                            <li class="rental-list"> <img src="assets/images/dot.png" class="px-3" alt=""></li>
+                            <li class="rental-list"> <img src="../../assets/images/dot.png" class="px-3" alt=""></li>
                             <li class="rental-list"> {{auto.gorivo}} </li>
                         </ul>
                     </div>
