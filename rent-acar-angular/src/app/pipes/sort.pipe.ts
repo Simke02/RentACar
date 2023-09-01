@@ -9,6 +9,7 @@ export class SortPipe implements PipeTransform {
   transform(value: Array<any>, args: any[]): any[] {
     const sortField = args[0];
     const sortDirection = args[1];
+    console.log(sortField, sortDirection);
     
   let multiplier = 1;
   if(sortDirection === 'desc'){
@@ -25,6 +26,15 @@ export class SortPipe implements PipeTransform {
     });
 
     return value;
+
+    /*return value.sort((a, b) => {
+      if (sortDirection === "asc") {
+        return a[sortField] - b[sortField];
+      } else if (sortDirection === "desc") {
+        return b[sortField] - a[sortField];
+      }
+      return 0;
+    });*/
   }
 
 }

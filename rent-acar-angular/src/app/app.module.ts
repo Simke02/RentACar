@@ -18,6 +18,8 @@ import { ReactiveFormsModule} from '@angular/forms'
 import { AutomobilEffect } from './automobili/store/automobil.effects';
 import { automobilReducer } from './automobili/store/automobil.reducer';
 import { SortPipe } from './pipes/sort.pipe';
+import { DatePipe } from '@angular/common';
+import { DodajAutoComponent } from './dodaj-auto/dodaj-auto.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { SortPipe } from './pipes/sort.pipe';
     RezervacijaComponent,
     HeaderComponent,
     AboutComponent,
-    SortPipe
+    SortPipe,
+    DodajAutoComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { SortPipe } from './pipes/sort.pipe';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: CorsInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: CorsInterceptor, multi: true },
+              DatePipe],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

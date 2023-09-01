@@ -83,4 +83,8 @@ export class RezervisiService {
     izmeniNoviZahtev(){
         sessionStorage.setItem('noviZahtev',JSON.stringify(false));
     }
+
+    obrisiNoviZahtev(){
+        sessionStorage.removeItem('noviZahtev');
+    }
 }

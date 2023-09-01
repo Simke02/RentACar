@@ -24,4 +24,9 @@ export class KorisnikService{
     VratiKorisnika(email: string): Promise<KorisnikI> {
         return this.korisnikRepository.findOne({where: {email: email}});
     }
+
+    async VratiIdKorisnika(email: string): Promise<number> {
+        const korisnik = await this.korisnikRepository.findOne({where: {email: email}});
+        return korisnik.id;
+    }
 }

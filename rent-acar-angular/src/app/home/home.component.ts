@@ -6,6 +6,7 @@ import { Stanje } from '../automobili/store/automobil.reducer';
 import { Store } from '@ngrx/store';
 import { inicijalizacija } from '../automobili/store/automobil.action';
 import { RezervisiService } from '../services/rezervisi.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -18,18 +19,27 @@ export class HomeComponent implements OnInit {
   constructor(private homeService: HomeService,
               private router: Router,
               private store: Store<Stanje>,
-              private rezervisiService: RezervisiService) {}
+              private rezervisiService: RezervisiService,
+              private datePipe: DatePipe) {}
 
   pronadjiAutoForm: FormGroup = new FormGroup({});
   tipoviAuto: string[] = [];
   lokacije: string[] = [];
+  trenutniDatum: string|null = "";
+  sledeciDatum: string|null = "";
 
   ngOnInit(): void {
+    this.trenutniDatum = new Date().toISOString().slice(0, 16);
+    const danas = new Date();
+    const sutra = new Date(danas);
+    sutra.setDate(danas.getDate() + 1);
+    this.sledeciDatum = sutra.toISOString().slice(0, 16);
+
     this.pronadjiAutoForm = new FormGroup({
       'tip': new FormControl(null, Validators.required),
       'lokacija': new FormControl(null, Validators.required),
-      'vreme_i': new FormControl(null, Validators.required),
-      'vreme_v': new FormControl(null, Validators.required)
+      'vreme_i': new FormControl(this.trenutniDatum, Validators.required),
+      'vreme_v': new FormControl(this.sledeciDatum, Validators.required)
     });
 
     this.homeService.ProcitajTipove()
@@ -55,6 +65,7 @@ export class HomeComponent implements OnInit {
         console.log(response);
       }
     })
+
   }
 
   pronadjiAuto(){

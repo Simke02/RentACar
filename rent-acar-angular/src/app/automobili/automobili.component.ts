@@ -15,10 +15,10 @@ import { inicijalizacija, ocisti } from './store/automobil.action';
 })
 export class AutomobiliComponent implements OnInit {
   automobili$ = this.store.select(selectAutomobil);
-  automobili: Automobil[] = [];
+  //automobili: Automobil[] = [];
   //Sortiranje
-  imeAtributa: string = "cena";
-  redosled: string = "asc";
+  imeAtributa: string = "";
+  redosled: string = "";
 
   constructor(private store: Store<Stanje>, private route: ActivatedRoute,
               private rezervisiService: RezervisiService) {}
@@ -37,7 +37,7 @@ export class AutomobiliComponent implements OnInit {
       this.store.dispatch(inicijalizacija({tip, lokacija, vreme_i, vreme_v}));
       this.rezervisiService.izmeniNoviZahtev();
     }
-    this.automobili$.subscribe({
+    /*this.automobili$.subscribe({
       next: (automobili: Automobil[]) => {
         this.automobili = automobili;
         console.log(this.automobili);
@@ -45,11 +45,17 @@ export class AutomobiliComponent implements OnInit {
       error: (response) => {
         console.log(response);
       }
-    })
+    })*/
+    this.imeAtributa = 'cena';
+    this.redosled = 'asc';
   }
 
   rezervisi(i: number){
-    this.rezervisiService.sacuvajAuto(this.automobili[i]);
+    this.automobili$.subscribe({
+      next: (automobili) => {
+        this.rezervisiService.sacuvajAuto(automobili[i]);
+      }
+    })
   }
 
   priSelekciji(vrednost: string | null){

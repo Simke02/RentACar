@@ -18,8 +18,13 @@ export class KorisnikController {
         return this.korisnikService.VratiSveKorisnike();
     }
 
-    @Get('konkretan')
-    VratiKorisnika(@Body('email') email: string): Promise<KorisnikI> {
+    @Get('konkretan/:email')
+    VratiKorisnika(@Param('email') email: string): Promise<KorisnikI> {
         return this.korisnikService.VratiKorisnika(email);
+    }
+
+    @Get('konkretanId/:email')
+    VratiIdKorisnika(@Param('email') email: string): Promise<number> {
+        return this.korisnikService.VratiIdKorisnika(email);
     }
 }

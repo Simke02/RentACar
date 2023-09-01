@@ -7,7 +7,7 @@ export class Dan{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "time"})
+    @Column({type: "timestamp"})
     vreme_vracanja: Date;
     @ManyToOne(() => Automobil)
     automobil: Automobil;

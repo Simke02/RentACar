@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-            <div *ngFor="let auto of automobili; let i = index" class="col-md-6 col-xl-4">
+            <div *ngFor="let auto of automobili$ | async; let i = index" class="col-md-6 col-xl-4">
                 <img [src]='auto.slika' class="card-img-top" alt="...">
                 <div class="card-body p-4">
                     <h4 class="card-title">{{auto.marka}} {{auto.model}}</h4>

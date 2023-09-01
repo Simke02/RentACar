@@ -4,5 +4,5 @@ Karavan
 Kupe
 Kabriolet
 MiniVan
-Džip/SUV
+Džip-SUV
 Pickup

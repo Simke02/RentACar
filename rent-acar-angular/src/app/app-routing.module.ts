@@ -5,6 +5,7 @@ import { AutomobiliComponent } from './automobili/automobili.component';
 import { OsiguranjeComponent } from './osiguranje/osiguranje.component';
 import { RezervacijaComponent } from './rezervacija/rezervacija.component';
 import { AboutComponent } from './about/about.component';
+import { DodajAutoComponent } from './dodaj-auto/dodaj-auto.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'osiguranje', component: OsiguranjeComponent},
   {path: 'rezervacija', component: RezervacijaComponent},
   {path: 'onama', component: AboutComponent},
+  {path: 'dodaj-auto', component: DodajAutoComponent},
   {path: '**', redirectTo: 'not-found'}
 ];
 

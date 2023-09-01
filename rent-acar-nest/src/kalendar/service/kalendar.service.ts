@@ -20,4 +20,8 @@ export class KalendarService{
     VratiSveKalendare(): Observable<KalendarI[]> {
         return from(this.kalendarRepository.find());
     }
+
+    VratiOdgovarajuciKalendar(datum: Date): Promise<KalendarI> {
+        return this.kalendarRepository.findOne({where: {datum: datum}});
+    }
 }

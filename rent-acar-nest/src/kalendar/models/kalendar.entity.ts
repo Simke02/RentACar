@@ -5,6 +5,6 @@ export class Kalendar{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "timestamp"})
+    @Column({type: "timestamp", unique: true})
     datum: Date;
 }
