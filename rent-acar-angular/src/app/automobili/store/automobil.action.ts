@@ -3,7 +3,7 @@ import { Automobil } from "src/app/models/automobili.model";
 
 export const inicijalizacija = createAction(
     '[Automobil] Inicijalizacija',
-    props<{ tip: string, lokacija: string, vreme_i: Date, vreme_v: Date }>()
+    props<{ tip: string, lokacija: string, vreme_i: string, vreme_v: string }>()
 );
 
 export const pribavljanjeUspelo = createAction(

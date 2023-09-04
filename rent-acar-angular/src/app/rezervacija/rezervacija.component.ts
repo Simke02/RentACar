@@ -176,7 +176,6 @@ export class RezervacijaComponent implements OnInit {
         .subscribe({
           next: (korisnik) => {
             this.rezervacija.korisnik = korisnik;
-            //console.log("ID: " + this.rezervacija.korisnikId);
             this.rezervacijaService.DodajRezervacija(this.rezervacija)
             .subscribe({
               next: (rezervacija)=>{
@@ -205,13 +204,23 @@ export class RezervacijaComponent implements OnInit {
         datum = new Date(this.vreme_izdavanja);
         datum.setDate(this.vreme_izdavanja.getDate() + i);
       } 
+      datum.setHours(0,0,0,0);
+      const godina = datum.getFullYear();
+      const mesec = (datum.getMonth() + 1).toString().padStart(2, '0');
+      const dani = datum.getDate().toString().padStart(2, '0');
+      const sati = datum.getHours().toString().padStart(2, '0');
+      const minuti = datum.getMinutes().toString().padStart(2, '0');
       let kalendarUpis: KalendarD = {
-        datum: datum
+        datum: `${godina}-${mesec}-${dani}T${sati}:${minuti}`
       }
+
       //dan koji upisujemo
       let vreme;
-      if(i==0)
+      let izd = false;
+      if(i==0){
         vreme = new Date(this.vreme_izdavanja);
+        izd = true;
+      }
       else if(i==this.broj_dana)//onda je ovde -1
         vreme = new Date(this.vreme_vracanja);
       else{
@@ -219,18 +228,22 @@ export class RezervacijaComponent implements OnInit {
         vreme.setDate(this.vreme_izdavanja.getDate() + i);
         vreme.setHours(0,0,0,0);
       } 
+      const godinaV = vreme.getFullYear();
+      const mesecV = (vreme.getMonth() + 1).toString().padStart(2, '0');
+      const daniV = vreme.getDate().toString().padStart(2, '0');
+      const satiV = vreme.getHours().toString().padStart(2, '0');
+      const minutiV = vreme.getMinutes().toString().padStart(2, '0');
       let dan: DanD = {
-        vreme_vracanja: vreme,
+        vreme: `${godinaV}-${mesecV}-${daniV}T${satiV}:${minutiV}`,
+        izdavanje: izd,
         automobil: this.auto,
         kalendar: {
           id: 0,
-          datum: new Date()
+          datum: ""
         }
       }
 
 
-      kalendarUpis.datum.setHours(0,0,0,0);
-      //console.log(kalendarUpis.datum);
       this.kalendarService.DodajKalendar(kalendarUpis).pipe(
         catchError(() => {
           console.error("Kalendar je vec upisan");
@@ -240,7 +253,7 @@ export class RezervacijaComponent implements OnInit {
       .subscribe({
         next: (kalendar)=>{
           console.log(kalendar);
-          this.kalendarService.VratiOdgovarajuciKalendar(kalendarUpis.datum.toISOString().slice(0, 16))
+          this.kalendarService.VratiOdgovarajuciKalendar(kalendarUpis.datum)
           .subscribe({
             next: (kalendarV)=>{
               console.log(kalendarV);

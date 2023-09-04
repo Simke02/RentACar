@@ -7,8 +7,10 @@ export class Dan{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "timestamp"})
-    vreme_vracanja: Date;
+    @Column({type: "varchar"})
+    vreme: string;
+    @Column({type: "boolean"})
+    izdavanje: boolean;
     @ManyToOne(() => Automobil)
     automobil: Automobil;
     @ManyToOne(() => Kalendar)

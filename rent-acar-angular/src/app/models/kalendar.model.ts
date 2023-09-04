@@ -1,8 +1,8 @@
 export interface Kalendar {
     id: number;
-    datum: Date;
+    datum: string;
 }
 
 export interface KalendarD {
-    datum: Date;
+    datum: string;
 }

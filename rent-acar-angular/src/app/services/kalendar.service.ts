@@ -17,4 +17,12 @@ export class KalendarService {
     VratiOdgovarajuciKalendar(datum: string): Observable<Kalendar> {
         return this.http.get<Kalendar>(environment.baseApiUrl+`/kalendari/${datum}`);
     }
+
+    VratiIdOdgovarajucihKalendara(datumi: string[]): Observable<number[]> {
+        let nastavak: string = "/kalendari/id/";
+        datumi.forEach(datum => {
+            nastavak += (datum+"--");
+        });
+        return this.http.get<number[]>(environment.baseApiUrl+nastavak);
+    }
 }

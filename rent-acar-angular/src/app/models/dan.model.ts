@@ -3,13 +3,15 @@ import { Kalendar } from "./kalendar.model";
 
 export interface Dan {
     id: number;
-    vreme_vracanja: Date;
+    vreme: string;
+    izdavanje: boolean;
     automobil: Automobil;
     kalendar: Kalendar;
 }
 
 export interface DanD {
-    vreme_vracanja: Date;
+    vreme: string;
+    izdavanje: boolean;
     automobil: Automobil;
     kalendar: Kalendar;
 }

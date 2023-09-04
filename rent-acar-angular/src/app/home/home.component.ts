@@ -29,11 +29,16 @@ export class HomeComponent implements OnInit {
   sledeciDatum: string|null = "";
 
   ngOnInit(): void {
-    this.trenutniDatum = new Date().toISOString().slice(0, 16);
     const danas = new Date();
-    const sutra = new Date(danas);
-    sutra.setDate(danas.getDate() + 1);
-    this.sledeciDatum = sutra.toISOString().slice(0, 16);
+    const godina = danas.getFullYear();
+    const mesec = (danas.getMonth() + 1).toString().padStart(2, '0');
+    const dan = danas.getDate().toString().padStart(2, '0');
+    const sati = danas.getHours().toString().padStart(2, '0');
+    const minuti = danas.getMinutes().toString().padStart(2, '0');
+    this.trenutniDatum = `${godina}-${mesec}-${dan}T${sati}:${minuti}`;
+
+    const danS = (danas.getDate() + 1).toString().padStart(2, '0');
+    this.sledeciDatum = `${godina}-${mesec}-${danS}T${sati}:${minuti}`
 
     this.pronadjiAutoForm = new FormGroup({
       'tip': new FormControl(null, Validators.required),
@@ -77,8 +82,20 @@ export class HomeComponent implements OnInit {
     this.rezervisiService.sacuvajVremeIzdavanja(vreme_i);
     this.rezervisiService.sacuvajVremeVracanja(vreme_v)
 
-    //this.store.dispatch(inicijalizacija({tip, lokacija, vreme_i, vreme_v}));
     this.rezervisiService.sacuvajNoviZahtev();
     this.router.navigate(['/automobili', tip, lokacija]);
+  }
+
+  promenaPocetka(){
+    const vreme_i = this.pronadjiAutoForm.get('vreme_i')?.value;
+    const danas = new Date(vreme_i);
+    const godina = danas.getFullYear();
+    const mesec = (danas.getMonth() + 1).toString().padStart(2, '0');
+    const danS = (danas.getDate() + 1).toString().padStart(2, '0');
+    const sati = danas.getHours().toString().padStart(2, '0');
+    const minuti = danas.getMinutes().toString().padStart(2, '0');
+
+    this.sledeciDatum = `${godina}-${mesec}-${danS}T${sati}:${minuti}`
+    this.pronadjiAutoForm.get('vreme_v')?.setValue(this.sledeciDatum);
   }
 }

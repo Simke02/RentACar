@@ -9,8 +9,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
-  async validate(email: string, sifra: string): Promise<any> {
-    const korisnik = await this.authService.ValidirajKorisnika(email, sifra);
+  async validate(username: string, password: string): Promise<any> {
+    const korisnik = await this.authService.ValidirajKorisnika(username, password);
     if (!korisnik) {
       throw new UnauthorizedException('Invalid credentials');
     }

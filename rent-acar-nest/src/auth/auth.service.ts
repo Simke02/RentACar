@@ -11,8 +11,10 @@ export class AuthService {
     async ValidirajKorisnika(email: string, sifra: string): Promise<any> {
         const korisnik = await this.korisnikService.VratiKorisnika(email);
         
-        if(korisnik && korisnik.sifra == sifra)
-            return korisnik;
+        if(korisnik && korisnik.sifra == sifra){
+            const {sifra, ...rezultat} = korisnik;
+            return rezultat;
+        }
         else
             return null;
     }

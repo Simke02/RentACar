@@ -3,7 +3,8 @@ import { Kalendar } from "src/kalendar/models/kalendar.entity";
 
 export interface DanI {
     id: number;
-    vreme_vracanja: Date;
+    vreme: string;
+    izdavanje: boolean;
     automobil: Automobil;
     kalendar: Kalendar;
 }

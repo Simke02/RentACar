@@ -8,10 +8,7 @@ export class AuthController {
 
     @Post('login')
     @UseGuards(AuthGuard('local'))
-    async login(@Body('email') email: string, @Body('sifra') sifra: string/*@Request() req*/) {
-        //return this.authService.login(req.korisnik);
-        //return req.korisnik;
-        //return "Pusi kurac";
+    async login(@Body('email') email: string, @Body('sifra') sifra: string) {
         return this.authService.ValidirajKorisnika(email, sifra);
     }
 

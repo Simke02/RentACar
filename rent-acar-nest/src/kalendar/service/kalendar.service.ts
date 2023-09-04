@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { Observable, from } from "rxjs";
 import { Kalendar } from "../models/kalendar.entity";
 import { KalendarI } from "../models/kalendar.interface";
@@ -21,7 +21,17 @@ export class KalendarService{
         return from(this.kalendarRepository.find());
     }
 
-    VratiOdgovarajuciKalendar(datum: Date): Promise<KalendarI> {
+    VratiOdgovarajuciKalendar(datum: string): Promise<KalendarI> {
         return this.kalendarRepository.findOne({where: {datum: datum}});
+    }
+
+    async VratiIdOdgovarajucihKalendara(datumi: string[]): Promise<number[]> {
+        const kalendari = await this.kalendarRepository.find({
+            where: {datum: In(datumi)},
+            select: ['id'],
+        });
+        console.log(kalendari);
+        const idNiz = kalendari.map(kalendar => kalendar.id);
+        return idNiz;
     }
 }
