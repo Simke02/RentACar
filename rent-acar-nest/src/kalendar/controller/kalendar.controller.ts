@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { KalendarService } from "../service/kalendar.service";
 import { KalendarI } from "../models/kalendar.interface";
@@ -29,5 +29,15 @@ export class KalendarController {
         const datumiNiz = datumi.split('--');
         console.log(datumiNiz);
         return this.kalendarService.VratiIdOdgovarajucihKalendara(datumiNiz);
+    }
+
+    @Put('azuriraj/:datum')
+    AzurirajKalendar(@Param('datum') datum: string, @Body() kalendar:KalendarI): Promise<KalendarI>{
+        return this.kalendarService.AzurirajKalendar(datum, kalendar);
+    }
+
+    @Delete('obrisi/:datum')
+    ObrisiKalendar(@Param('datum') datum: string): Promise<any>{
+        return this.kalendarService.ObrisiKalendar(datum);
     }
 }

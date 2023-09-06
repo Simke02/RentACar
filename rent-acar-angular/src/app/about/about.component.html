@@ -1,1 +1,31 @@
-<p>about works!</p>
+<div class=" container  py-5 my-5">
+        <h2 class=" text-center my-5">Sholaya<span class="text-primary">Car </span> </h2> 
+      <div>
+        <div>
+          <p>Naša kompanija je nastala 2018. godine u Nišu i na početku je sadržala skromnu flotu od 5 automobila.
+             U tom trenutku smo imali samo jednu lokaciju za preuzimanje automobila koja i danas postoji i nalazi
+              se na aerodromu Konstantin Veliki u Nišu. Prve godine su bile zahtevne, ali smo u vođeni pravednošću 
+            našeg cilja da za svakog obezbedimo pristupačan automobil nastavili da usavršavamo naše poslovanje.</p>
+        </div>
+        <div>
+            <p>Prevazilaženjem početnih prepreka uspeli smo da se postavimo kao lider na nivou države. Povećali
+             na preko 50 automobili i otvorili 2 nove poslanice. Svake godine imamo veći broj zadovoljnih 
+             mušterija koje nam donose reputaciju koju sada nosimo. Kompanija danas zapošljava više od 60
+             ljudi koji rade u prodaji, ali i u administrativnom sektoru.                 
+            </p>
+        </div>
+        <div>
+            <p>Planiramo da našu uslugu svakog dana unapređujemo u cilju zadovoljenja potreba korisnika, a takođe
+                i da dopremo do što više novih korisnika otvaranjem novih poslovnica kako u državi, tako i u 
+                inostranstvu. Ponosni smo što smo se držimo osnovne ideje osnivanja kompanije, a to je obezbeđivanje 
+                odgovarajućeg automobila za svaku osobu!
+            </p>
+        </div>
+        <p *ngIf="!svakaCast" class=" text-center">Pozivamo te da odigraš kviz o našoj kompaniji!</p>
+        <div *ngIf="!svakaCast">
+            <button type="button" class="btn btn-primary center" (click)="pokreniKviz()" >Kreni</button>
+        </div>
+        <p *ngIf="svakaCast" class="text-center"><b>Svaka cast! Osvojili ste: {{rezultat}} poena</b></p>
+        <app-kviz [kojiKviz]="kojiKviz" (rezultatEvent)="proveriRez($event)"></app-kviz>
+      </div>
+</div>

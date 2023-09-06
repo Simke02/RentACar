@@ -34,4 +34,13 @@ export class KalendarService{
         const idNiz = kalendari.map(kalendar => kalendar.id);
         return idNiz;
     }
+
+    async AzurirajKalendar(datum: string, kalendar: KalendarI): Promise<KalendarI> {
+        await this.kalendarRepository.update({datum: datum}, kalendar)
+        return this.kalendarRepository.findOne({where: {datum: datum}});
+    }
+
+    ObrisiKalendar(datum: string): Promise<any>{
+        return this.kalendarRepository.delete({datum: datum});
+    }
 }

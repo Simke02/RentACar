@@ -1,0 +1,35 @@
+<div *ngIf="kojiKviz!=0" class=" container  py-5 my-5">
+    <form [formGroup]="obicnaForm" (ngSubmit)="obicnaF()" *ngIf="kojiKviz==1">
+    <div>
+        <p>Kada je osnovana naša kompanija?</p>
+        <input type="number" formControlName="prvo">
+    </div>
+    <div>
+        <p>Koliko otprilike automobila imamo na raspolaganju?</p>
+        <input type="number" formControlName="drugo">
+    </div>
+    <div>
+        <p>Koliko poslanica je trenutno dostupno našim korisnicima?</p>
+        <input type="number" formControlName="trece">
+    </div>
+    <button [disabled]="!obicnaForm.valid"
+    type="submit" class="btn btn-primary">Završi</button>
+    </form>
+    <!-- Ulogovan korisnik -->
+    <form [formGroup]="korisnikForm" (ngSubmit)="korisnikF()" *ngIf="kojiKviz==2">
+    <div>
+        <p>Koliko otprilike zaposlenih ima naša kompanija?</p>
+        <input type="number" formControlName="prvoK">
+    </div>
+    <div>
+        <p>U koliko država posluje naša kompanija?</p>
+        <input type="number" formControlName="drugoK">
+    </div>
+    <div>
+        <p>Kako ste zadovoljni našim ulugama?</p>
+        <input type="number" formControlName="treceK">
+    </div>
+    <button [disabled]="!korisnikForm.valid"
+              type="submit" class="btn btn-primary">Završi</button>
+    </form>
+</div>

@@ -19,7 +19,7 @@ export class DanService{
 
     VratiSveDane(): Observable<DanI[]> {
         return from(this.danRepository.find({
-            relations: ['kalendar']
+            relations: ['kalendar', 'automobil']
         }));
     }
 
@@ -34,5 +34,14 @@ export class DanService{
         });
         console.log(dani);
         return dani;
+    }
+
+    async AzurirajDan(id: string, dan: DanI): Promise<DanI> {
+        await this.danRepository.update(id, dan)
+        return this.danRepository.findOne({where: {id: Number(id)}});
+    }
+
+    ObrisiDan(id: string): Promise<any>{
+        return this.danRepository.delete({kalendar: {id: Number(id)}});
     }
 }

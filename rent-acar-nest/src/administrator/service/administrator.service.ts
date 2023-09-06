@@ -20,4 +20,17 @@ export class AdministratorService{
         VratiSveAdministratore(): Observable<AdministratorI[]> {
             return from(this.administratorRepository.find());
         }
+
+        VratiAdministratora(email: string): Promise<AdministratorI> {
+            return this.administratorRepository.findOne({where: {email: email}});
+        }
+
+        async AzurirajAdministratora(email: string, administrator: AdministratorI): Promise<AdministratorI> {
+            await this.administratorRepository.update({email: email}, administrator);
+            return this.administratorRepository.findOne({where: {email: email}});
+        }
+    
+        ObrisiAdministratora(email: string): Promise<any>{
+            return this.administratorRepository.delete({email: email});
+        }
 }

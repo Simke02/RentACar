@@ -6,7 +6,7 @@ import { AuthGuard } from "@nestjs/passport";
 export class AuthController {
     constructor(private authService: AuthService){}
 
-    @Post('login')
+    /*@Post('login')
     @UseGuards(AuthGuard('local'))
     async login(@Body('email') email: string, @Body('sifra') sifra: string) {
         return this.authService.ValidirajKorisnika(email, sifra);
@@ -16,5 +16,5 @@ export class AuthController {
     @Get('korisnik')
     getProfile(@Request() req) {
       return req.korisnik;
-    }
+    }*/
 }

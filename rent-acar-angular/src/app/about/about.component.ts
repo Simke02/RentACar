@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DanService } from '../services/dan.service';
-import { KalendarService } from '../services/kalendar.service';
 
 @Component({
   selector: 'app-about',
@@ -8,17 +6,25 @@ import { KalendarService } from '../services/kalendar.service';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
-  
-  constructor(private kalendarService: KalendarService) {}
+  kojiKviz: number = 0;
+  svakaCast: boolean = false;
+  rezultat: number = 0;
+  constructor() {}
 
   ngOnInit() {
-    const brojevi: string[] = ["2023-09-03T00:00","2023-09-04T00:00"];
-    this.kalendarService.VratiIdOdgovarajucihKalendara(brojevi)
-    .subscribe({
-      next: (e)=>{
-        console.log(e);
-      }
-    }
-    )
+
+  }
+
+  pokreniKviz(){
+    if(localStorage.getItem('token') === null)
+      this.kojiKviz = 1;
+    else
+      this.kojiKviz = 2;
+  }
+
+  proveriRez(rez: number){
+    this.svakaCast = true;
+    this.rezultat = rez;
+    this.kojiKviz = 0;
   }
 }

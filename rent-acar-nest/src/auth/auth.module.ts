@@ -6,14 +6,16 @@ import { KorisnikModule } from "src/korisnik/korisnik.module";
 import { PassportModule } from "@nestjs/passport";
 import { LocalStrategy } from "./local.strategy";
 import { JwtStrategy } from "./jwt.strategy";
+import { AdministratorModule } from "src/administrator/administrator.module";
 
 @Module({
     imports: [JwtModule.register({
         secret: 'SECRET', //ovo moras da stavis nesto bezbedno
-        signOptions: {expiresIn: '60s'}
+        signOptions: {expiresIn: '1h'}
     }),
     KorisnikModule,
-    PassportModule
+    PassportModule,
+    AdministratorModule
     ],
     controllers: [AuthController],
     providers: [AuthService, LocalStrategy, JwtStrategy],

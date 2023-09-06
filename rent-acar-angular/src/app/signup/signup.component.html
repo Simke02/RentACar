@@ -1,0 +1,96 @@
+<div class=" container  py-5 my-5">
+    <h2 class=" text-center my-5">napravi <span class="text-primary">nalog</span> </h2>
+
+      <div class="glavni-rasp">
+        <form [formGroup]="signupForm" (ngSubmit)="DodajKorisnika()">
+           <div class="form-group row sam-div" style="margin-top: 20px;">
+             <label for="ime" class="col-sm-2 col-form-label">{{'Ime'}}</label>
+             <div class="col-sm-10">
+               <input type="text" class="form-control" id="ime" placeholder="{{'Ime'}}"
+               formControlName="ime">
+             </div>
+           </div>
+           <div class="form-group row sam-div">
+             <label for="prezime" class="col-sm-2 col-form-label">{{'Prezime'}}</label>
+             <div class="col-sm-10">
+               <input type="text" class="form-control" id="prezime" placeholder="{{'Prezime'}}"
+               formControlName="prezime">
+             </div>
+           </div>
+           <div class="form-group row sam-div">
+               <label for="telefon" class="col-sm-2 col-form-label">{{'Telefon'}}</label>
+               <div class="col-sm-10">
+                 <input type="text" class="form-control" id="telefon" placeholder="{{'Telefon'}}"
+                 formControlName="telefon">
+               </div>
+           </div>
+           <div class="form-group row sam-div">
+               <label for="drzava" class="col-sm-2 col-form-label">{{'Država'}}</label>
+               <div class="col-sm-10">
+                 <select class="form-control" id="drzava" data-live-search="true"
+                 formControlName="drzava" (change)="priSelekciji()">
+                    <option *ngFor="let drzava of drzave" [value]="drzava">
+                      {{drzava}}
+                    </option>
+                 </select>
+               </div>
+           </div>
+           <div class="form-group row sam-div">
+               <label for="grad" class="col-sm-2 col-form-label">{{'Grad'}}</label>
+               <div class="col-sm-10">
+                 <input type="text" class="form-control" id="grad" placeholder="{{'Grad'}}"
+                 formControlName="grad">
+               </div>
+           </div>
+          <div class="form-group row sam-div">
+            <label for="adresa" class="col-sm-2 col-form-label">{{'Adresa'}}</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="adresa" placeholder="{{'Adresa'}}"
+              formControlName="adresa">
+            </div>
+          </div>
+          <div class="form-group row sam-div">
+            <label for="broj_vozacke" class="col-sm-2 col-form-label">{{'Broj vozačke'}}</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="broj_vozacke" placeholder="{{'Broj vozačke'}}"
+              formControlName="broj_vozacke">
+            </div>
+          </div>
+          <div *ngIf="signupForm.get('drzava')?.value === 'Srbija'" class="form-group row sam-div">
+            <label for="jmbg" class="col-sm-2 col-form-label">{{'Jmbg'}}</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="jmbg" placeholder="{{'Jmbg'}}"
+              formControlName="jmbg">
+            </div>
+          </div>
+          <div *ngIf="signupForm.get('drzava')?.value !== 'Srbija'" class="form-group row sam-div">
+            <label for="broj_pasosa" class="col-sm-2 col-form-label">{{'Broj pasoša'}}</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="broj_pasosa" placeholder="{{'Broj pasoša'}}"
+              formControlName="broj_pasosa">
+            </div>
+          </div>
+          <div class="form-group row sam-div">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="email" placeholder="Email"
+              formControlName="email">
+            </div>
+        </div>
+        <div class="form-group row sam-div">
+            <label for="sifra" class="col-sm-2 col-form-label">Šifra</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sifra" placeholder="Šifra"
+              formControlName="sifra">
+            </div>
+        </div>
+          <div class="form-group row sam-div">
+            <div class="col-sm-10 dugmad">
+              <button [disabled]="!signupForm.valid"
+              type="submit" class="btn btn-outline-darker-pink">{{'Napravi nalog'}}</button>
+              <button type="button" class="btn btn-outline-warning" (click)="odustani()">{{'Odustani'}}</button>
+            </div>
+          </div>
+        </form>
+    </div>
+</div>

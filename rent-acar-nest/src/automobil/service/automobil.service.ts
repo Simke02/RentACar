@@ -26,4 +26,13 @@ export class AutomobilService{
     VratiSveAutomobile(): Observable<AutomobilI[]>{
         return from(this.automobilRepository.find());
     }
+
+    async AzurirajAutomobil(id: string, automobil: AutomobilI): Promise<AutomobilI> {
+        await this.automobilRepository.update(id, automobil)
+        return this.automobilRepository.findOne({where: {id: Number(id)}});
+    }
+
+    ObrisiAutomobil(id: string): Promise<any>{
+        return this.automobilRepository.delete(id);
+    }
 }

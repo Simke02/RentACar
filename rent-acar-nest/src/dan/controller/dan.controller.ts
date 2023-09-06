@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { DanService } from "../service/dan.service";
 import { DanI } from "../models/dan.interface";
@@ -22,5 +22,16 @@ export class DanController {
     VratiOdgovarajuceDane(@Param('id') id: string): Promise<DanI[]> {
         const idjeviNiz = id.split('-').map(Number);
         return this.danService.VratiOdgovarajuceDane(idjeviNiz);
+    }
+
+    @Put('azuriraj/:id')
+    AzurirajDan(@Param('id') id: string, @Body() dan:DanI): Promise<DanI>{
+        return this.danService.AzurirajDan(id, dan);
+    }
+
+    //brise po kalendar id
+    @Delete('obrisi/:id')
+    ObrisiDan(@Param('id') id: string): Promise<any>{
+        return this.danService.ObrisiDan(id);
     }
 }

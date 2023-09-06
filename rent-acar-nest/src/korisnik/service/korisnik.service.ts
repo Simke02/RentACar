@@ -13,8 +13,16 @@ export class KorisnikService{
         private korisnikRepository: Repository<Korisnik>
     ) {}
 
-    DodajKorisnika(korisnik: KorisnikI): Observable<KorisnikI>{
-        return from(this.korisnikRepository.save(korisnik));
+    async DodajKorisnika(korisnik: KorisnikI): Promise<KorisnikI>{
+        const pronadjen = await this.korisnikRepository.findOne({where: {email: korisnik.email}});
+        if(pronadjen){
+            if(pronadjen.sifra===""){
+                return await this.AzurirajKorisnika(korisnik.email, korisnik);
+            }else{
+                return await this.korisnikRepository.save(korisnik);
+            }
+        }
+        return await this.korisnikRepository.save(korisnik);
     }
 
     VratiSveKorisnike(): Observable<KorisnikI[]> {
@@ -28,5 +36,14 @@ export class KorisnikService{
     async VratiIdKorisnika(email: string): Promise<number> {
         const korisnik = await this.korisnikRepository.findOne({where: {email: email}});
         return korisnik.id;
+    }
+
+    async AzurirajKorisnika(email: string, korisnik: KorisnikI): Promise<KorisnikI> {
+        await this.korisnikRepository.update({email: email}, korisnik);
+        return this.korisnikRepository.findOne({where: {email: email}});
+    }
+
+    ObrisiKorisnika(email: string): Promise<any>{
+        return this.korisnikRepository.delete({email: email});
     }
 }

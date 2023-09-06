@@ -11,6 +11,7 @@ import { KalendarService } from '../services/kalendar.service';
 import { Kalendar, KalendarD } from '../models/kalendar.model';
 import { DanD } from '../models/dan.model';
 import { DanService } from '../services/dan.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-rezervacija',
@@ -98,7 +99,8 @@ export class RezervacijaComponent implements OnInit {
               private rezervacijaService: RezervacijaService,
               private korisnikService: KorisnikService,
               private kalendarService: KalendarService,
-              private danService: DanService) {
+              private danService: DanService,
+              private loginService: LoginService) {
     this.rezervacijaForm = new FormGroup({
       'ime': new FormControl(null, Validators.required),
       'prezime': new FormControl(null, Validators.required),
@@ -139,6 +141,42 @@ export class RezervacijaComponent implements OnInit {
     this.dodatno_osiguranje = this.rezervisiService.vratiBoolOsiguranje();
     if(this.dodatno_osiguranje)
       this.ukupna_cena += this.auto.dodatno_osiguranje*this.broj_dana;
+
+    let token = localStorage.getItem('token');
+    if(token){
+      this.loginService.getProfile(token).subscribe({
+        next: (profil)=>{
+          this.rezervacijaForm.get('ime')?.setValue(profil.ime);
+          this.rezervacijaForm.get('prezime')?.setValue(profil.prezime);
+          this.rezervacijaForm.get('email')?.setValue(profil.email);
+          this.rezervacijaForm.get('telefon')?.setValue(profil.telefon);
+          this.rezervacijaForm.get('drzava')?.setValue(profil.drzava);
+          this.rezervacijaForm.get('grad')?.setValue(profil.grad);
+          this.rezervacijaForm.get('adresa')?.setValue(profil.adresa);
+
+          if(profil.drzava == 'Srbija'){
+            this.rezervacijaForm.get('jmbg')?.addValidators(Validators.required);
+            this.rezervacijaForm.get('jmbg')?.setValue(profil.jmbg);
+            this.rezervacijaForm.get('jmbg')?.updateValueAndValidity();
+            this.rezervacijaForm.get('broj_pasosa')?.clearValidators();
+            this.rezervacijaForm.get('broj_pasosa')?.updateValueAndValidity();
+          }
+          else{
+            if(localStorage.getItem('adminMode') === String(false))
+              this.rezervacijaForm.get('broj_pasosa')?.setValue(profil.broj_pasosa);
+            this.rezervacijaForm.get('broj_pasosa')?.addValidators(Validators.required);
+            this.rezervacijaForm.get('broj_pasosa')?.updateValueAndValidity();
+            this.rezervacijaForm.get('jmbg')?.clearValidators();
+            this.rezervacijaForm.get('jmbg')?.updateValueAndValidity()
+          }
+
+          if(localStorage.getItem('adminMode') === String(false)){
+            this.rezervacijaForm.get('broj_vozacke')?.setValue(profil.broj_vozacke);
+          }
+        }
+    })
+  }
+
   }
 
   zavrsiRezervaciju(){

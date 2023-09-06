@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { AutomobilService } from "../service/automobil.service";
 import { AutomobilI } from "../models/automobil.interface";
@@ -21,5 +21,15 @@ export class AutomobilController {
     @Get('sve')
     VratiSveAutomobile(): Observable<AutomobilI[]> {
         return this.automobilService.VratiSveAutomobile();
+    }
+
+    @Put('azuriraj/:id')
+    AzurirajAutomobil(@Param('id') id: string, @Body() automobil:AutomobilI): Promise<AutomobilI>{
+        return this.automobilService.AzurirajAutomobil(id, automobil);
+    }
+
+    @Delete('obrisi/:id')
+    ObrisiAutomobil(@Param('id') id: string): Promise<any>{
+        return this.automobilService.ObrisiAutomobil(id);
     }
 }

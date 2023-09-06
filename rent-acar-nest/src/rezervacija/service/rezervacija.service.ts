@@ -18,6 +18,28 @@ export class RezervacijaService{
     }
 
     VratiSveRezervacije(): Observable<RezervacijaI[]> {
-        return from(this.rezervacijaRepository.find());
+        return from(this.rezervacijaRepository.find({
+            relations: ['korisnik', 'automobil']
+        }));
+    }
+
+    VratiKorisnikoveRezervacije(email: string): Observable<RezervacijaI[]> {
+        return from(this.rezervacijaRepository.find({
+            relations: ['korisnik', 'automobil'],
+            where: {
+                korisnik: {
+                    email: email
+                },
+            }
+        }));
+    }
+
+    async AzurirajRezervaciju(id: string, rezervacija: RezervacijaI): Promise<RezervacijaI> {
+        await this.rezervacijaRepository.update(id, rezervacija)
+        return this.rezervacijaRepository.findOne({where: {id: Number(id)}});
+    }
+
+    ObrisiRezervaciju(id: string): Promise<any>{
+        return this.rezervacijaRepository.delete(id);
     }
 }
