@@ -13,6 +13,8 @@ import { AzurirajKorisnikaComponent } from './azuriraj-korisnika/azuriraj-korisn
 import { LoginGuard } from './guards/login.guard';
 import { AzurirajAdminaComponent } from './azuriraj-admina/azuriraj-admina.component';
 import { AdminGuard } from './guards/admin.guard';
+import { SveRezervacijeComponent } from './sve-rezervacije/sve-rezervacije.component';
+import { KorisnikoveRezervacijeComponent } from './korisnikove-rezervacije/korisnikove-rezervacije.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,6 +28,8 @@ const routes: Routes = [
   {path: 'dodaj-admina', component: DodajAdminaComponent, canActivate: [AdminGuard]},
   {path: 'azuriraj-korisnika', component: AzurirajKorisnikaComponent, canActivate:[LoginGuard]},
   {path: 'azuriraj-admina', component: AzurirajAdminaComponent, canActivate: [AdminGuard]},
+  {path: 'sve-rezervacije', component: SveRezervacijeComponent, canActivate: [AdminGuard]},
+  {path: 'korisnikove-rezervacije', component: KorisnikoveRezervacijeComponent, canActivate: [LoginGuard]},
   {path: '**', redirectTo: 'not-found'}
 ];
 

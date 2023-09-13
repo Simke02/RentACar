@@ -1,16 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request, HttpException, HttpStatus } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { AutomobilService } from "../service/automobil.service";
 import { AutomobilI } from "../models/automobil.interface";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller('automobili')
 export class AutomobilController {
     
     constructor(private automobilService: AutomobilService) {}
 
+    @UseGuards(JwtAuthGuard)
     @Post()
-    DodajAutomobil(@Body() automobil: AutomobilI): Observable<AutomobilI>{
-        return this.automobilService.DodajAutomobil(automobil);
+    DodajAutomobil(@Request() req, @Body() automobil: AutomobilI): Observable<AutomobilI>{
+        if(req.user.role===true)
+            return this.automobilService.DodajAutomobil(automobil);
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 
     @Get(':tip/:lokacija')
@@ -18,18 +23,30 @@ export class AutomobilController {
         return this.automobilService.VratiOdgovarajuceAutomobile(tip, lokacija);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('sve')
-    VratiSveAutomobile(): Observable<AutomobilI[]> {
-        return this.automobilService.VratiSveAutomobile();
+    VratiSveAutomobile(@Request() req): Observable<AutomobilI[]> {
+        if(req.user.role===true)
+            return this.automobilService.VratiSveAutomobile();
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put('azuriraj/:id')
-    AzurirajAutomobil(@Param('id') id: string, @Body() automobil:AutomobilI): Promise<AutomobilI>{
-        return this.automobilService.AzurirajAutomobil(id, automobil);
+    AzurirajAutomobil(@Request() req, @Param('id') id: string, @Body() automobil:AutomobilI): Promise<AutomobilI>{
+        if(req.user.role===true)
+            return this.automobilService.AzurirajAutomobil(id, automobil);
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('obrisi/:id')
-    ObrisiAutomobil(@Param('id') id: string): Promise<any>{
-        return this.automobilService.ObrisiAutomobil(id);
+    ObrisiAutomobil(@Request() req, @Param('id') id: string): Promise<any>{
+        if(req.user.role===true)
+            return this.automobilService.ObrisiAutomobil(id);
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 }

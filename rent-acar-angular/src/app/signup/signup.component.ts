@@ -26,6 +26,7 @@ export class SignupComponent {
     broj_vozacke: ""
   };
   drzave: string[] = [];
+  prikazSifre: string = "password";
 
   constructor(private korisnikService: KorisnikService,
               private rezervacijaService: RezervacijaService,
@@ -100,5 +101,12 @@ export class SignupComponent {
 
   odustani(){
     this.router.navigate(['/login']);
+  }
+
+  prikazi(){
+    if(this.prikazSifre === "password")
+      this.prikazSifre = "text";
+    else
+      this.prikazSifre = "password"
   }
 }

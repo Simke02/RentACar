@@ -1,0 +1,24 @@
+<div class=" container  py-5 my-5">
+    <div class="table-div">
+        <table class="table">
+            <thead>
+                <td>ID</td>
+                <td>Email</td>
+                <td>Automobil</td>
+                <td>Vreme izdavanja</td>
+                <td>Vreme vraćanja</td>
+                <td>Dodatno osiguranje</td>
+                <td>Ukupna cena</td>
+            </thead>
+            <tbody *ngFor="let rez of rezervacije; index as i">
+                <td>{{rez.id}}</td>
+                <td>{{rez.korisnik.email}}</td>
+                <td>{{rez.automobil.marka + " " + rez.automobil.model}}</td>
+                <td>{{vremena_i[i]}}</td>
+                <td>{{vremena_v[i]}}</td>
+                <td>{{rez.dodatno_osiguranje?"Da":"Ne"}}</td>
+                <td>{{rez.ukupna_cena}}</td>
+            </tbody>
+        </table>
+    </div>
+    </div>

@@ -8,15 +8,23 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
   ulogovanSub: Subscription;
   ulogovan: boolean = false;
+  adminSub: Subscription;
+  admin: boolean = false;
   helper = new JwtHelperService();
 
   constructor(private loginService: LoginService) {
     this.ulogovanSub = this.loginService.ulogovan.subscribe({
       next: (ulg)=>{
         this.ulogovan = ulg;
+      }
+    })
+
+    this.adminSub = this.loginService.admin.subscribe({
+      next: (adm)=>{
+        this.admin = adm;
       }
     })
   }
@@ -27,22 +35,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const dekodiranToken = this.helper.decodeToken(token);
       const expirationDuration = (new Date(dekodiranToken.exp).getTime())*1000 - new Date().getTime();
       if(dekodiranToken.role==true){
-        localStorage.setItem('adminMode', String(true));
+        this.loginService.admin.next(true);
       }
       else{
-        localStorage.setItem('adminMode', String(false));
+        this.loginService.admin.next(false);
       }
       this.loginService.ulogovan.next(true);
       console.log(expirationDuration);
       this.loginService.autoLogout(expirationDuration);
     }else{
-      localStorage.setItem('adminMode', String(false));
+      this.loginService.admin.next(false);
       this.loginService.ulogovan.next(false);
     }
-  }
-
-  ngOnDestroy() {
-    localStorage.removeItem('adminMode');
   }
 
   logout(){

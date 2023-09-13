@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, concatMap, map, of, switchMap } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AutomobilD, Automobil } from "../models/automobili.model";
@@ -18,8 +18,11 @@ export class AutomobiliService {
         return this.http.get<Automobil[]>(environment.baseApiUrl+`/automobili/${tip}/${lokacija}`);
     }
 
-    DodajAutomobil(automobil: AutomobilD): Observable<AutomobilD> {
-        return this.http.post<AutomobilD>(environment.baseApiUrl+'/automobili', automobil);
+    DodajAutomobil(token: string, automobil: AutomobilD): Observable<AutomobilD> {
+        const httpOptions = {
+            headers: new HttpHeaders().set('Authorization', 'Bearer ' + token)
+        };
+        return this.http.post<AutomobilD>(environment.baseApiUrl+'/automobili', automobil, httpOptions);
     }
 
     async TrenutnoDostupniAutomobili(automobili: Automobil[], vreme_i: string, vreme_v: string): Promise<Automobil[]> {

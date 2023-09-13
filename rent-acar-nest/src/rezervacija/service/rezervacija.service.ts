@@ -1,20 +1,34 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Observable, from } from "rxjs";
+import { Observable, from, map, switchMap } from "rxjs";
 import { Rezervacija } from "../models/rezervacija.entity";
 import { RezervacijaI } from "../models/rezervacija.interface";
+import { MailerService } from "@nestjs-modules/mailer";
 
 @Injectable()
 export class RezervacijaService{
     
     constructor(
         @InjectRepository(Rezervacija)
-        private rezervacijaRepository: Repository<Rezervacija>
+        private rezervacijaRepository: Repository<Rezervacija>,
+        private mailerService: MailerService
     ) {}
 
     DodajRezervacija(rezervacija: RezervacijaI): Observable<RezervacijaI>{
-        return from(this.rezervacijaRepository.save(rezervacija));
+        return from(this.rezervacijaRepository.save(rezervacija)).pipe(
+            switchMap((rezervacija) => {
+                return from(this.mailerService.sendMail({
+                    to: [rezervacija.korisnik.email, 'sholayacar@gmail.com'],
+                    from: 'andrijasimovic2002@gmail.com',
+                    subject: 'Rezervacija automobila',
+                    html: `Uspešno ste rezervisali automobil ${rezervacija.automobil.marka} 
+                    ${rezervacija.automobil.model}. Broj vaše rezervacije je ${rezervacija.id}`
+                })).pipe(
+                    map(() => rezervacija)
+                )
+            })
+        )
     }
 
     VratiSveRezervacije(): Observable<RezervacijaI[]> {

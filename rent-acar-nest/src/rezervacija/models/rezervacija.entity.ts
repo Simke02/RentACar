@@ -9,10 +9,10 @@ export class Rezervacija{
 
     @Column({type: "integer"})
     ukupna_cena: number;
-    @Column({type: "timestamp"})
-    vreme_izdavanja: Date;
-    @Column({type: "timestamp"})
-    vreme_vracanja: Date;
+    @Column({type: "varchar"})
+    vreme_izdavanja: string;
+    @Column({type: "varchar"})
+    vreme_vracanja: string;
     @Column({type: "boolean"})
     dodatno_osiguranje: boolean;
     @ManyToOne(() => Korisnik)

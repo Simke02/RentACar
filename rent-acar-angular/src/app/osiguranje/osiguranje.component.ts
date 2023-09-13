@@ -20,7 +20,7 @@ export class OsiguranjeComponent implements OnInit {
     this.vreme_izdavanja = new Date(this.rezervisiService.vratiVremeIzdavanja());
     this.vreme_vracanja = new Date(this.rezervisiService.vratiVremeVracanja());
     const razlika = this.vreme_vracanja.getTime() - this.vreme_izdavanja.getTime();
-    const broj_dana = Math.floor(razlika / (1000 * 3600 * 24));
+    const broj_dana = Math.ceil(razlika / (1000 * 3600 * 24));
     this.ukupna_cena = broj_dana * this.osiguranje;
   }
 

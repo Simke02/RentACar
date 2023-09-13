@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request, HttpException, HttpStatus } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { AdministratorService } from "../service/administrator.service";
 import { AdministratorI } from "../models/administrator.interface";
@@ -9,9 +9,13 @@ export class AdministratorController {
 
     constructor(private administratorService: AdministratorService) {}
 
+    @UseGuards(JwtAuthGuard)
     @Post()
-    DodajAministratora(@Body() administrator: AdministratorI): Observable<AdministratorI> {
-        return this.administratorService.DodajAdministratora(administrator);
+    DodajAministratora(@Request() req, @Body() administrator: AdministratorI): Observable<AdministratorI> {
+        if(req.user.role===true)
+            return this.administratorService.DodajAdministratora(administrator);
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 
     @Get()

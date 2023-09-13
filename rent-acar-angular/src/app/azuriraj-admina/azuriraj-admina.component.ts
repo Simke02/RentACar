@@ -28,6 +28,7 @@ export class AzurirajAdminaComponent {
   };
   drzave: string[] = [];
   token: any = "";
+  prikazSifre: string = "password";
 
   constructor(private loginService: LoginService,
               private rezervacijaService: RezervacijaService,
@@ -99,5 +100,12 @@ export class AzurirajAdminaComponent {
 
   odustani(){
     this.router.navigate(['']);
+  }
+
+  prikazi(){
+    if(this.prikazSifre === "password")
+      this.prikazSifre = "text";
+    else
+      this.prikazSifre = "password"
   }
 }

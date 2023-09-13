@@ -9,8 +9,8 @@
     <div class="hero-content container text-center">
         <div class="row">
             <div class="detail mb-4">
-                <h1 class="">Find your <span class="text-primary"> rental car </span> </h1>
-                <p class="hero-paragraph">We have many best rental car collections.</p>
+                <h1 class="">Nađi svoj <span class="text-primary"> auto </span> </h1>
+                <p class="hero-paragraph">Imamo raznovrsne automobile u ponudi</p>
             </div>
         </div>
     </div>
@@ -22,12 +22,12 @@
 
         <form class="row">
             <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
-                <label for="vehicle" class="label-style text-capitalize form-label">Vehicle type</label>
+                <label for="vehicle" class="label-style text-capitalize form-label">Tip automobila</label>
                 <div class="input-group date ">
                     <!-- <input type="text" class="form-control p-3 " id="tip" placeholder="Select Car Group" -->
                     <!-- formControlName="tip" /> -->
                     <select class="form-control" id="tip" formControlName="tip">
-                        <option value="-1">Select Car Group</option>
+                        <option value="-1">Izaberi tip</option>
                         <option *ngFor="let tip of tipoviAuto">{{tip}}</option>
                       </select>
                     <span class="search-icon-position position-absolute p-3 ">
@@ -36,12 +36,12 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
-                <label for="location" class="label-style text-capitalize form-label">Picking up location</label>
+                <label for="location" class="label-style text-capitalize form-label">Lokacija pokupljanja</label>
                 <div class="input-group date">
                     <!-- <input type="text" class="form-control p-3 position-relative" id="lokacija" -->
                         <!-- placeholder="Airport or anywhere" formControlName="lokacija" /> -->
                         <select class="form-control" id="lokacija" formControlName="lokacija">
-                            <option value="-1">Airport or anywhere</option>
+                            <option value="-1">Izaberi lokaciju</option>
                             <option *ngFor="let lokacija of lokacije">{{lokacija}}</option>
                           </select>
                     <span class="search-icon-position position-absolute p-3 ">
@@ -52,14 +52,14 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
-                <label for="pick-up-date" class="label-style text-capitalize form-label">Picking up date</label>
+                <label for="pick-up-date" class="label-style text-capitalize form-label">Vreme pokupljanja</label>
                 <div class="input-group date" id="datepicker1">
                     <input type="datetime-local" class="form-control p-3" id="vreme_i" formControlName="vreme_i"
                     [value]="trenutniDatum" [min]="trenutniDatum" (change)="promenaPocetka()"/> 
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
-                <label for="return-date" class="label-style text-capitalize form-label">Returning date</label>
+                <label for="return-date" class="label-style text-capitalize form-label">Vreme vraćanja</label>
                 <div class="input-group date" id="datepicker2">
                     <input type="datetime-local" class="form-control p-3" id="vreme_v" formControlName="vreme_v"
                     [value]="sledeciDatum" [min]="sledeciDatum"/>
@@ -68,7 +68,7 @@
         </form>
 
         <div class="d-grid gap-2 mt-4">
-            <button [disabled]="!pronadjiAutoForm.valid" class="btn btn-primary " type="submit">Find your car</button>
+            <button [disabled]="!pronadjiAutoForm.valid" class="btn btn-primary " type="submit">Nađi automobil</button>
         </div>
     </div>
 </form>
@@ -76,31 +76,31 @@
 <!-- process section start  -->
 <section id="process">
     <div class=" process-content container">
-        <h2 class=" text-center my-5">Our renting <span class="text-primary"> process </span> </h2>
+        <h2 class=" text-center my-5">Naš proces <span class="text-primary"> rentiranja </span> </h2>
         <img class="progress-img" src="assets/images/process-line.png" alt="">
         <div class="row">
             <div class="col-6 col-lg-3 text-start my-4">
                 <iconify-icon class="process-icon" icon="solar:bus-outline"></iconify-icon>
-                <h5 class="text-uppercase"> Choose a vehicle </h5>
-                <p>Sed euismod mauris corper libero.</p>
+                <h5 class="text-uppercase"> Početak pretrage </h5>
+                <p>Izabrati tip, vreme i lokaciju</p>
             </div>
 
             <div class="col-6 col-lg-3 text-start my-4">
                 <iconify-icon class="process-icon" icon="mdi:calendar-tick-outline"></iconify-icon>
-                <h5 class="text-uppercase"> Pick location & date </h5>
-                <p>Nisi maecenas fermentum neque.</p>
+                <h5 class="text-uppercase"> Izaberite vaš auto </h5>
+                <p>Izaberite jedan od mnogih</p>
             </div>
 
             <div class="col-6 col-lg-3 text-start my-4">
                 <iconify-icon class="process-icon" icon="mdi:book-lock-outline"></iconify-icon>
-                <h5 class="text-uppercase"> Book your car </h5>
-                <p>Mauris corper accumsan urna sed.</p>
+                <h5 class="text-uppercase"> Izaberite osiguranje </h5>
+                <p>Basic ili All Inclusive</p>
             </div>
 
             <div class="col-6 col-lg-3 text-start my-4">
                 <iconify-icon class="process-icon" icon="icons8:finish-flag"></iconify-icon>
-                <h5 class="text-uppercase"> Finish process </h5>
-                <p>Orci duis ut lectus metus nam sette.</p>
+                <h5 class="text-uppercase"> Završite rezervaciju </h5>
+                <p>Unesite Vaše podatke</p>
             </div>
 
         </div>
@@ -114,7 +114,7 @@
 <section id="faq">
 
     <div class="container my-5 py-5 ">
-        <h2 class=" text-center my-5">We’ve got <span class="text-primary"> answers</span> </h2>
+        <h2 class=" text-center my-5">Mi imamo <span class="text-primary"> odgovore</span> </h2>
 
 
         <div class="accordion col-md-8 offset-md-2" id="accordionPanelsStayOpenExample">
@@ -124,14 +124,14 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                         aria-controls="panelsStayOpen-collapseOne">
-                        Why to believe with GoCar Car rental service ?
+                        Zašto verovati kompaniji SholayaCar?
                     </button>
                 </h5>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
                     <div class="accordion-body">
-                        <p>Diam orci gravida convallis at enim risus viverra. Hac mi tristique in aliquet tincidunt
-                            nam lectus nec. Placerat interdum auctor facilisi massa laoreet hendrerit posuere a.
-                            Tristique ultricies consectetu at.</p>
+                        <p>Naša kompanija je pokazala profesionalnost kroz svoje višegodišnje iskustvo
+                            u ovoj oblasti, koje je ostavilo brojne klijente zadovoljnim.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -141,17 +141,15 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseTwo">
-                        How to know which hosting service provider is best?
+                        Koliko automobila imate na raspolaganju?
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
                     aria-labelledby="panelsStayOpen-headingTwo">
                     <div class="accordion-body">
-                        <p>Diam orci gravida convallis at enim risus viverra. Hac mi tristique in aliquet tincidunt
-                            nam lectus
-                            nec. Placerat interdum auctor facilisi massa laoreet hendrerit posuere a. Tristique
-                            ultricies consectetu
-                            at.</p>
+                        <p>Naša kompanija ima na raspolaganju preko 50 automobila koji su dostupni
+                            na tri lokacije u Srbiji.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -161,17 +159,15 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseThree">
-                        What are the special features of hosthub?
+                        Da li imate ograničenje po pitanju kilometraže?
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
                     aria-labelledby="panelsStayOpen-headingThree">
                     <div class="accordion-body">
-                        <p>Diam orci gravida convallis at enim risus viverra. Hac mi tristique in aliquet tincidunt
-                            nam lectus
-                            nec. Placerat interdum auctor facilisi massa laoreet hendrerit posuere a. Tristique
-                            ultricies consectetu
-                            at.</p>
+                        <p>Koliko kilometara ćete preći u našim vozilima ostavljamo Vama na 
+                            izbor, bilo da ste automobil rezervisali na jedan ili više dana.
+                        </p>
                     </div>
                 </div>
             </div>

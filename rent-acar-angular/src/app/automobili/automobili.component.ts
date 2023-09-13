@@ -19,6 +19,7 @@ export class AutomobiliComponent implements OnInit {
   //Sortiranje
   imeAtributa: string = "";
   redosled: string = "";
+  broj_dana: number = 0;
 
   constructor(private store: Store<Stanje>, private route: ActivatedRoute,
               private rezervisiService: RezervisiService) {}
@@ -48,6 +49,11 @@ export class AutomobiliComponent implements OnInit {
     })*/
     this.imeAtributa = 'cena';
     this.redosled = 'asc';
+
+    const vreme_izdavanja = new Date(this.rezervisiService.vratiVremeIzdavanja());
+    const vreme_vracanja = new Date(this.rezervisiService.vratiVremeVracanja());
+    const razlika = vreme_vracanja.getTime() - vreme_izdavanja.getTime();
+    this.broj_dana = Math.ceil(razlika / (1000 * 3600 * 24));
   }
 
   rezervisi(i: number){

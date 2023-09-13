@@ -25,6 +25,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             nalog = await this.korisnikService.VratiKorisnika(payload.email);
         
         console.log(payload);
-        return nalog;
+        return {nalog, role: payload.role};
     }
 }

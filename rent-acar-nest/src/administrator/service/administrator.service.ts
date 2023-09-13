@@ -1,20 +1,34 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Observable, from } from "rxjs";
+import { Observable, from, map, switchMap } from "rxjs";
 import { Administrator } from "../models/administrator.entity";
 import { AdministratorI } from "../models/administrator.interface";
+import { MailerService } from "@nestjs-modules/mailer";
 
 @Injectable()
 export class AdministratorService{
 
     constructor(
         @InjectRepository(Administrator)
-        private administratorRepository: Repository<Administrator>)
+        private administratorRepository: Repository<Administrator>,
+        private mailerService: MailerService)
         {}
 
         DodajAdministratora(administrator: AdministratorI): Observable<AdministratorI>{
-            return from(this.administratorRepository.save(administrator));
+            return from(this.administratorRepository.save(administrator)).pipe(
+                switchMap((admin)=>{
+                    return from(this.mailerService.sendMail({
+                        to: admin.email,
+                        from: 'sholayacar@gmail.com',
+                        subject: 'Otvaranje naloga na SholayaCar',
+                        html: `Uspešno ste otvorili administratorski nalog na
+                         aplikaciji SholayaCar`
+                    })).pipe(
+                        map(()=>admin)
+                    )
+                })
+            )
         }
 
         VratiSveAdministratore(): Observable<AdministratorI[]> {

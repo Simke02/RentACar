@@ -10,8 +10,11 @@ import { Administrator, AdministratorD } from "../models/administrator.model";
 export class AdministratorService {
     constructor(private http: HttpClient) {}
 
-    DodajAdministratora(administrator: AdministratorD): Observable<AdministratorD> {
-        return this.http.post<AdministratorD>(environment.baseApiUrl+'/administratori', administrator);
+    DodajAdministratora(token: string, administrator: AdministratorD): Observable<AdministratorD> {
+        const httpOptions = {
+            headers: new HttpHeaders().set('Authorization', 'Bearer ' + token)
+        };
+        return this.http.post<AdministratorD>(environment.baseApiUrl+'/administratori', administrator, httpOptions);
     }
 
     AzurirajAdministratora(email: string, administrator: Administrator, token: string): Observable<Administrator> {

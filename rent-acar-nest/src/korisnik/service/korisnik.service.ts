@@ -4,13 +4,15 @@ import { Repository } from "typeorm";
 import { Observable, from } from "rxjs";
 import { Korisnik } from "../models/korisnik.entity";
 import { KorisnikI } from "../models/korisnik.interface";
+import { MailerService } from "@nestjs-modules/mailer";
 
 @Injectable()
 export class KorisnikService{
     
     constructor(
         @InjectRepository(Korisnik)
-        private korisnikRepository: Repository<Korisnik>
+        private korisnikRepository: Repository<Korisnik>,
+        private mailerService: MailerService
     ) {}
 
     async DodajKorisnika(korisnik: KorisnikI): Promise<KorisnikI>{
@@ -19,7 +21,14 @@ export class KorisnikService{
             if(pronadjen.sifra===""){
                 return await this.AzurirajKorisnika(korisnik.email, korisnik);
             }else{
-                return await this.korisnikRepository.save(korisnik);
+                this.mailerService.sendMail({
+                    to: korisnik.email,
+                    from: 'sholayacar@gmail.com',
+                    subject: 'Otvaranje naloga na SholayaCar',
+                    html: `Uspešno ste otvorili nalog na aplikaciji SholayaCar`
+                })
+
+                return await this.korisnikRepository.save(korisnik)
             }
         }
         return await this.korisnikRepository.save(korisnik);

@@ -12,6 +12,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class LoginComponent{
   loginForm: FormGroup;
   helper = new JwtHelperService();
+  prikazSifre: string = "password";
 
   constructor(private loginService: LoginService,
               private router: Router){
@@ -29,7 +30,8 @@ export class LoginComponent{
         localStorage.setItem('token', token.access_token);
 
         const dekodiranToken = this.helper.decodeToken(token.access_token);
-        localStorage.setItem('adminMode', dekodiranToken.role);
+        if(dekodiranToken.role === true)
+          this.loginService.admin.next(true);
         this.loginService.ulogovan.next(true);
         
         this.loginService.autoLogout(3600*1000);
@@ -39,5 +41,16 @@ export class LoginComponent{
         console.log(error);
       }
     );
+  }
+
+  prikazi(){
+    if(this.prikazSifre === "password")
+      this.prikazSifre = "text";
+    else
+      this.prikazSifre = "password"
+  }
+
+  napraviNalog(){
+    this.router.navigate(['/signup']);
   }
 }

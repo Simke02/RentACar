@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule, isNgrxMockEnvironment } from '@ngrx/store';
@@ -27,6 +28,10 @@ import { AzurirajKorisnikaComponent } from './azuriraj-korisnika/azuriraj-korisn
 import { AzurirajAdminaComponent } from './azuriraj-admina/azuriraj-admina.component';
 import { LoginGuard } from './guards/login.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { KorisnikoveRezervacijeComponent } from './korisnikove-rezervacije/korisnikove-rezervacije.component';
+import { SveRezervacijeComponent } from './sve-rezervacije/sve-rezervacije.component';
+import { ToastrModule } from 'ngx-toastr';
+import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,9 @@ import { AdminGuard } from './guards/admin.guard';
     DodajAdminaComponent,
     KvizComponent,
     AzurirajKorisnikaComponent,
-    AzurirajAdminaComponent
+    AzurirajAdminaComponent,
+    KorisnikoveRezervacijeComponent,
+    SveRezervacijeComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,11 @@ import { AdminGuard } from './guards/admin.guard';
     EffectsModule.forRoot([AutomobilEffect]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgToastModule
   ],
   providers: [DatePipe, LoginGuard, AdminGuard],
   bootstrap: [AppComponent],

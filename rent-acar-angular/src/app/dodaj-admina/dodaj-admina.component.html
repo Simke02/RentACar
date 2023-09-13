@@ -73,15 +73,16 @@
         <div class="form-group row sam-div">
             <label for="sifra" class="col-sm-2 col-form-label">Šifra</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="sifra" placeholder="Šifra"
+              <input [type]="prikazSifre" class="form-control" id="sifra" placeholder="Šifra"
               formControlName="sifra">
             </div>
         </div>
+        <input type="checkbox" (click)="prikazi()">Prikaži šifru
           <div class="form-group row sam-div">
             <div class="col-sm-10 dugmad">
               <button [disabled]="!dodajAdminaForm.valid"
               type="submit" class="btn btn-outline-darker-pink">{{'Napravi nalog'}}</button>
-              <button type="button" class="btn btn-outline-warning" (click)="odustani()">{{'Odustani'}}</button>
+              <button type="button" class="btn btn-outline-primary" (click)="odustani()">{{'Odustani'}}</button>
             </div>
           </div>
         </form>

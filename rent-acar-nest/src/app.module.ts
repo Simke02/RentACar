@@ -11,6 +11,7 @@ import { RezervacijaModule } from './rezervacija/rezervacija.module';
 import { KalendarModule } from './kalendar/kalendar.module';
 import { DanModule } from './dan/dan.module';
 import { AuthModule } from './auth/auth.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -28,7 +29,16 @@ import { AuthModule } from './auth/auth.module';
     RezervacijaModule,
     KalendarModule,
     DanModule,
-    AuthModule
+    AuthModule,
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        auth: {
+          user: 'andrijasimovic2002@gmail.com',
+          pass: 'tfzmpwlusnorobjo'
+        }
+      }
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdministratorD } from '../models/administrator.model';
 import { RezervacijaService } from '../services/rezervacija.service';
 import { AdministratorService } from '../services/administrator.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dodaj-admina',
@@ -24,8 +25,11 @@ export class DodajAdminaComponent implements OnInit {
     pozicija: ""
   }
   drzave: string[] = [];
+  prikazSifre: string = "password";
+
   constructor(private rezervacijaService: RezervacijaService,
-              private administratorService: AdministratorService){
+              private administratorService: AdministratorService,
+              private router: Router){
     this.dodajAdminaForm = new FormGroup({
       'ime': new FormControl(null, Validators.required),
       'prezime': new FormControl(null, Validators.required),
@@ -66,7 +70,9 @@ export class DodajAdminaComponent implements OnInit {
     this.administrator.jmbg = this.dodajAdminaForm.get('jmbg')?.value;
     this.administrator.pozicija = this.dodajAdminaForm.get('pozicija')?.value;
 
-    this.administratorService.DodajAdministratora(this.administrator)
+    const token : any = localStorage.getItem('token');
+
+    this.administratorService.DodajAdministratora(token, this.administrator)
     .subscribe({
       next:(admin)=>{
         console.log(admin);
@@ -75,6 +81,13 @@ export class DodajAdminaComponent implements OnInit {
   }
 
   odustani(){
-    
+    this.router.navigate(['']);
+  }
+
+  prikazi(){
+    if(this.prikazSifre === "password")
+      this.prikazSifre = "text";
+    else
+      this.prikazSifre = "password"
   }
 }

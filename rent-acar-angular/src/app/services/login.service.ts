@@ -12,6 +12,7 @@ import { RezervisiService } from "./rezervisi.service";
 export class LoginService {
     private tokenExpirationTimer:any;
     ulogovan = new BehaviorSubject<boolean>(false);
+    admin = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -41,9 +42,9 @@ export class LoginService {
         console.log("izlogovan");
         this.router.navigate(['/login']);
         localStorage.removeItem('token');
-        localStorage.removeItem('adminMode');
         this.rezervisiService.obrisiAuto();
         this.ulogovan.next(false);
+        this.admin.next(false);
         
         if(this.tokenExpirationTimer){
           clearTimeout(this.tokenExpirationTimer);

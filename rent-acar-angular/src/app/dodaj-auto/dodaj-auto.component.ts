@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AutomobilD } from '../models/automobili.model';
 import { HomeService } from '../services/home.service';
 import { AutomobiliService } from '../services/automobili.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dodaj-auto',
@@ -31,7 +32,8 @@ export class DodajAutoComponent implements OnInit {
   lokacije: string[] = [];
 
   constructor(private homeService: HomeService,
-              private automobiliService: AutomobiliService){
+              private automobiliService: AutomobiliService,
+              private router: Router){
     this.dodajAuto = new FormGroup({
       'marka': new FormControl(null, Validators.required),
       'model': new FormControl(null, Validators.required),
@@ -92,7 +94,9 @@ export class DodajAutoComponent implements OnInit {
     this.auto.slika = this.dodajAuto.get('slika')?.value;
     this.auto.lokacija = this.dodajAuto.get('lokacija')?.value;
 
-    this.automobiliService.DodajAutomobil(this.auto)
+    const token : any = localStorage.getItem('token');
+
+    this.automobiliService.DodajAutomobil(token, this.auto)
     .subscribe({
       next: (auto)=>{
         console.log(auto);
@@ -101,7 +105,7 @@ export class DodajAutoComponent implements OnInit {
   }
 
   odustani(){
-
+    this.router.navigate(['']);
   }
 
   ZabranjenaVrednost(control: FormControl): {[s: string]: boolean} | null{

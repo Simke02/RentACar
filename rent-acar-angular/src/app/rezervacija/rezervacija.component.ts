@@ -6,12 +6,14 @@ import { RezervacijaService } from '../services/rezervacija.service';
 import { KorisnikD } from '../models/korisnik.model';
 import { KorisnikService } from '../services/korisnik.service';
 import { RezervacijaD } from '../models/rezervacija.model';
-import { catchError, of } from 'rxjs';
+import { Subscription, catchError, of } from 'rxjs';
 import { KalendarService } from '../services/kalendar.service';
 import { Kalendar, KalendarD } from '../models/kalendar.model';
 import { DanD } from '../models/dan.model';
 import { DanService } from '../services/dan.service';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-rezervacija',
@@ -52,8 +54,8 @@ export class RezervacijaComponent implements OnInit {
   }
   rezervacija: RezervacijaD = {
     ukupna_cena: 0,
-    vreme_izdavanja: new Date(),
-    vreme_vracanja: new Date(),
+    vreme_izdavanja: "",
+    vreme_vracanja: "",
     dodatno_osiguranje: false,
     korisnik: {
       id: 0,
@@ -93,6 +95,8 @@ export class RezervacijaComponent implements OnInit {
   vreme_vracanja: Date = new Date();
   dodatno_osiguranje: boolean = false;
   broj_dana: number = 0;
+  adminSub: Subscription;
+  admin: boolean = false;
 
 
   constructor(private rezervisiService: RezervisiService,
@@ -100,7 +104,9 @@ export class RezervacijaComponent implements OnInit {
               private korisnikService: KorisnikService,
               private kalendarService: KalendarService,
               private danService: DanService,
-              private loginService: LoginService) {
+              private loginService: LoginService,
+              private toast: NgToastService,
+              private router: Router) {
     this.rezervacijaForm = new FormGroup({
       'ime': new FormControl(null, Validators.required),
       'prezime': new FormControl(null, Validators.required),
@@ -113,6 +119,11 @@ export class RezervacijaComponent implements OnInit {
       'jmbg': new FormControl(null),
       'broj_pasosa': new FormControl(null)
     });
+    this.adminSub = this.loginService.admin.subscribe({
+      next: (adm)=>{
+        this.admin = adm;
+      }
+    })
   }
 
   ngOnInit(){
@@ -133,8 +144,7 @@ export class RezervacijaComponent implements OnInit {
     this.vreme_izdavanja = new Date(this.rezervisiService.vratiVremeIzdavanja());
     this.vreme_vracanja = new Date(this.rezervisiService.vratiVremeVracanja());
     const razlika = this.vreme_vracanja.getTime() - this.vreme_izdavanja.getTime();
-    this.broj_dana = Math.floor(razlika / (1000 * 3600 * 24));
-    console.log("Broj dana: " + this.broj_dana);
+    this.broj_dana = Math.ceil(razlika / (1000 * 3600 * 24));
     
     //Popunjavanje objekta rezervacija
     this.ukupna_cena = this.auto.cena*this.broj_dana;
@@ -162,7 +172,7 @@ export class RezervacijaComponent implements OnInit {
             this.rezervacijaForm.get('broj_pasosa')?.updateValueAndValidity();
           }
           else{
-            if(localStorage.getItem('adminMode') === String(false))
+            if(this.admin === false)
               this.rezervacijaForm.get('broj_pasosa')?.setValue(profil.broj_pasosa);
             this.rezervacijaForm.get('broj_pasosa')?.addValidators(Validators.required);
             this.rezervacijaForm.get('broj_pasosa')?.updateValueAndValidity();
@@ -170,7 +180,7 @@ export class RezervacijaComponent implements OnInit {
             this.rezervacijaForm.get('jmbg')?.updateValueAndValidity()
           }
 
-          if(localStorage.getItem('adminMode') === String(false)){
+          if(this.admin === false){
             this.rezervacijaForm.get('broj_vozacke')?.setValue(profil.broj_vozacke);
           }
         }
@@ -195,8 +205,21 @@ export class RezervacijaComponent implements OnInit {
     else
       this.korisnik.broj_pasosa = this.rezervacijaForm.get('broj_pasosa')?.value;
 
-    this.rezervacija.vreme_izdavanja = this.vreme_izdavanja;
-    this.rezervacija.vreme_vracanja = this.vreme_vracanja;
+    let godina = this.vreme_izdavanja.getFullYear();
+    let mesec = (this.vreme_izdavanja.getMonth() + 1).toString().padStart(2, '0');
+    let dani = this.vreme_izdavanja.getDate().toString().padStart(2, '0');
+    let sati = this.vreme_izdavanja.getHours().toString().padStart(2, '0');
+    let minuti = this.vreme_izdavanja.getMinutes().toString().padStart(2, '0');
+
+    this.rezervacija.vreme_izdavanja = `${godina}-${mesec}-${dani}T${sati}:${minuti}`;
+    
+    godina = this.vreme_vracanja.getFullYear();
+    mesec = (this.vreme_vracanja.getMonth() + 1).toString().padStart(2, '0');
+    dani = this.vreme_vracanja.getDate().toString().padStart(2, '0');
+    sati = this.vreme_vracanja.getHours().toString().padStart(2, '0');
+    minuti = this.vreme_vracanja.getMinutes().toString().padStart(2, '0');
+    
+    this.rezervacija.vreme_vracanja = `${godina}-${mesec}-${dani}T${sati}:${minuti}`;
     this.rezervacija.dodatno_osiguranje = this.dodatno_osiguranje;
     this.rezervacija.ukupna_cena = this.ukupna_cena;
     this.rezervacija.automobil = this.auto;
@@ -209,7 +232,6 @@ export class RezervacijaComponent implements OnInit {
     )
     .subscribe({
       next: (korisnik)=>{
-        console.log(korisnik);
         this.korisnikService.VratiKorisnika(this.korisnik.email)
         .subscribe({
           next: (korisnik) => {
@@ -217,12 +239,12 @@ export class RezervacijaComponent implements OnInit {
             this.rezervacijaService.DodajRezervacija(this.rezervacija)
             .subscribe({
               next: (rezervacija)=>{
-                console.log(rezervacija);
                 this.rezervisiService.obrisiAuto();
                 this.rezervisiService.obrisiBoolOsiguranje();
                 this.rezervisiService.obrisiVremeIzdavanja();
                 this.rezervisiService.obrisiVremeVracanja();
                 this.rezervisiService.obrisiNoviZahtev();
+                this.toast.success({detail: "Rezervacija", summary: "Uspešno", duration: 5000});
               }
             })
           }
@@ -243,11 +265,11 @@ export class RezervacijaComponent implements OnInit {
         datum.setDate(this.vreme_izdavanja.getDate() + i);
       } 
       datum.setHours(0,0,0,0);
-      const godina = datum.getFullYear();
-      const mesec = (datum.getMonth() + 1).toString().padStart(2, '0');
-      const dani = datum.getDate().toString().padStart(2, '0');
-      const sati = datum.getHours().toString().padStart(2, '0');
-      const minuti = datum.getMinutes().toString().padStart(2, '0');
+      godina = datum.getFullYear();
+      mesec = (datum.getMonth() + 1).toString().padStart(2, '0');
+      dani = datum.getDate().toString().padStart(2, '0');
+      sati = datum.getHours().toString().padStart(2, '0');
+      minuti = datum.getMinutes().toString().padStart(2, '0');
       let kalendarUpis: KalendarD = {
         datum: `${godina}-${mesec}-${dani}T${sati}:${minuti}`
       }
@@ -290,16 +312,13 @@ export class RezervacijaComponent implements OnInit {
       )
       .subscribe({
         next: (kalendar)=>{
-          console.log(kalendar);
           this.kalendarService.VratiOdgovarajuciKalendar(kalendarUpis.datum)
           .subscribe({
             next: (kalendarV)=>{
-              console.log(kalendarV);
               dan.kalendar = kalendarV;
               this.danService.DodajDan(dan)
               .subscribe({
                 next: (danV)=>{
-                  console.log(danV);
                 },
               })
             },
@@ -310,7 +329,12 @@ export class RezervacijaComponent implements OnInit {
   }
 
   odustani(){
-
+    this.rezervisiService.obrisiAuto();
+    this.rezervisiService.obrisiBoolOsiguranje();
+    this.rezervisiService.obrisiVremeIzdavanja();
+    this.rezervisiService.obrisiVremeVracanja();
+    this.rezervisiService.obrisiNoviZahtev();
+    this.router.navigate(['']);
   }
 
   priSelekciji(){
