@@ -15,12 +15,16 @@ import { AzurirajAdminaComponent } from './azuriraj-admina/azuriraj-admina.compo
 import { AdminGuard } from './guards/admin.guard';
 import { SveRezervacijeComponent } from './sve-rezervacije/sve-rezervacije.component';
 import { KorisnikoveRezervacijeComponent } from './korisnikove-rezervacije/korisnikove-rezervacije.component';
+import { SviAutomobiliComponent } from './svi-automobili/svi-automobili.component';
+import { AzurirajAutoComponent } from './azuriraj-auto/azuriraj-auto.component';
+import { RezOsigGuard } from './guards/rezOsig.guard';
+import { AutoGuard } from './guards/auto.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'automobili/:tip/:lokacija', component: AutomobiliComponent},
-  {path: 'osiguranje', component: OsiguranjeComponent},
-  {path: 'rezervacija', component: RezervacijaComponent},
+  {path: 'automobili', component: AutomobiliComponent, canActivate: [AutoGuard]},
+  {path: 'osiguranje', component: OsiguranjeComponent, canActivate: [RezOsigGuard]},
+  {path: 'rezervacija', component: RezervacijaComponent, canActivate: [RezOsigGuard]},
   {path: 'onama', component: AboutComponent},
   {path: 'dodaj-auto', component: DodajAutoComponent, canActivate: [AdminGuard]},
   {path: 'login', component: LoginComponent},
@@ -30,6 +34,8 @@ const routes: Routes = [
   {path: 'azuriraj-admina', component: AzurirajAdminaComponent, canActivate: [AdminGuard]},
   {path: 'sve-rezervacije', component: SveRezervacijeComponent, canActivate: [AdminGuard]},
   {path: 'korisnikove-rezervacije', component: KorisnikoveRezervacijeComponent, canActivate: [LoginGuard]},
+  {path: 'svi-automobili', component: SviAutomobiliComponent, canActivate: [AdminGuard]},
+  {path: 'azuriraj-auto/:id', component: AzurirajAutoComponent, canActivate: [AdminGuard]},
   {path: '**', redirectTo: 'not-found'}
 ];
 

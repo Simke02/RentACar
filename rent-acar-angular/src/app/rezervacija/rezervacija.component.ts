@@ -244,7 +244,10 @@ export class RezervacijaComponent implements OnInit {
                 this.rezervisiService.obrisiVremeIzdavanja();
                 this.rezervisiService.obrisiVremeVracanja();
                 this.rezervisiService.obrisiNoviZahtev();
+                sessionStorage.removeItem("tip");
+                sessionStorage.removeItem("lokacija");
                 this.toast.success({detail: "Rezervacija", summary: "Uspešno", duration: 5000});
+                this.router.navigate(['']);
               }
             })
           }

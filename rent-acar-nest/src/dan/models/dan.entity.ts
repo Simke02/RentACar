@@ -11,8 +11,8 @@ export class Dan{
     vreme: string;
     @Column({type: "boolean"})
     izdavanje: boolean;
-    @ManyToOne(() => Automobil)
+    @ManyToOne(() => Automobil, {onDelete: 'CASCADE'})
     automobil: Automobil;
-    @ManyToOne(() => Kalendar)
+    @ManyToOne(() => Kalendar, {onDelete: 'CASCADE'})
     kalendar: Kalendar;
 }

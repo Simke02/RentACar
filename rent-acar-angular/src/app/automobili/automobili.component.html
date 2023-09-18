@@ -3,10 +3,13 @@
 
 <div class="">
     <select class="btn btn-outline-darker-pink prikazi-dugme" (change)="priSelekciji($any($event.target).value)">
-        <option value="0">{{'Cena (najviša)'}}</option>
-        <option value="1">{{'Cena (najniža)'}}</option>
-        <option value="2">{{'Naziv (A-Z)'}}</option>
-        <option value="3">{{'Naziv (Z-A)'}}</option>
+        <option value="a">Sortiranje</option>
+        <option value="0">Cena (najviša)</option>
+        <option value="1">Cena (najniža)</option>
+        <option value="2">Naziv (A-Z)</option>
+        <option value="3">Naziv (Z-A)</option>
+        <option value="0">Godište (noviji)</option>
+        <option value="1">Godište (stariji)</option>
     </select>
 </div>
 

@@ -9,10 +9,10 @@ import { environment } from "src/environments/environment";
 export class HomeService {
     constructor(private http: HttpClient) {}
 
-    ProcitajTipove(): Observable<string>{
-        return this.http.get('assets/data/tipoviAut.txt', { responseType: 'text' });
+    ProcitajTipove(dodatak: string): Observable<string>{
+        return this.http.get(dodatak+'assets/data/tipoviAut.txt', { responseType: 'text' });
     }
-    ProcitajLokacije(): Observable<string>{
-        return this.http.get('assets/data/lokacije.txt', { responseType: 'text' });
+    ProcitajLokacije(dodatak: string): Observable<string>{
+        return this.http.get(dodatak+'assets/data/lokacije.txt', { responseType: 'text' });
     }
 }

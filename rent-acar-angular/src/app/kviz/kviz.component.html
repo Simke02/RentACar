@@ -1,35 +1,39 @@
-<div *ngIf="kojiKviz!=0" class=" container  py-5 my-5">
+<div *ngIf="kojiKviz!=0" class=" container py-5 my-5 d-flex justify-content-center align-items-center">
     <form [formGroup]="obicnaForm" (ngSubmit)="obicnaF()" *ngIf="kojiKviz==1">
-    <div>
+    <div class="center-content">
         <p>Kada je osnovana naša kompanija?</p>
         <input type="number" formControlName="prvo">
     </div>
-    <div>
+    <div class="center-content">
         <p>Koliko otprilike automobila imamo na raspolaganju?</p>
         <input type="number" formControlName="drugo">
     </div>
-    <div>
+    <div class="center-content">
         <p>Koliko poslanica je trenutno dostupno našim korisnicima?</p>
         <input type="number" formControlName="trece">
     </div>
-    <button [disabled]="!obicnaForm.valid"
-    type="submit" class="btn btn-primary">Završi</button>
+    <div class="center-content dugme">
+        <button [disabled]="!obicnaForm.valid"
+        type="submit" class="btn btn-primary">Završi</button>
+    </div>
     </form>
     <!-- Ulogovan korisnik -->
     <form [formGroup]="korisnikForm" (ngSubmit)="korisnikF()" *ngIf="kojiKviz==2">
-    <div>
+    <div class="center-content">
         <p>Koliko otprilike zaposlenih ima naša kompanija?</p>
         <input type="number" formControlName="prvoK">
     </div>
-    <div>
+    <div class="center-content">
         <p>U koliko država posluje naša kompanija?</p>
         <input type="number" formControlName="drugoK">
     </div>
-    <div>
+    <div class="center-content">
         <p>Kako ste zadovoljni našim ulugama?</p>
         <input type="number" formControlName="treceK">
     </div>
-    <button [disabled]="!korisnikForm.valid"
+    <div class="center-content dugme">
+        <button [disabled]="!korisnikForm.valid"
               type="submit" class="btn btn-primary">Završi</button>
+    </div>
     </form>
 </div>

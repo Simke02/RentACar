@@ -18,9 +18,13 @@ export class AdministratorController {
             throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get()
-    VratiSveAdministratore(): Observable<AdministratorI[]> {
-        return this.administratorService.VratiSveAdministratore();
+    VratiSveAdministratore(@Request() req): Observable<AdministratorI[]> {
+        if(req.user.role===true)
+            return this.administratorService.VratiSveAdministratore();
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 
     @Get('konkretan/:email')
@@ -34,8 +38,12 @@ export class AdministratorController {
         return this.administratorService.AzurirajAdministratora(email, administrator);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('obrisi/:email')
-    ObrisiAdministratora(@Param('email') email: string): Promise<any>{
-        return this.administratorService.ObrisiAdministratora(email);
+    ObrisiAdministratora(@Request() req, @Param('email') email: string): Promise<any>{
+        if(req.user.role===true)
+            return this.administratorService.ObrisiAdministratora(email);
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 }

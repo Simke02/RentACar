@@ -35,4 +35,10 @@ export class AutomobilService{
     ObrisiAutomobil(id: string): Promise<any>{
         return this.automobilRepository.delete(id);
     }
+
+    VratiAutomobil(id: string): Observable<Automobil> {
+        return from(this.automobilRepository.findOne({
+            where: {id: Number(id)}
+        }))
+    }
 }

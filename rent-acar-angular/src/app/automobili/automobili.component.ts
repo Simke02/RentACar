@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Automobil } from '../models/automobili.model';
 import { Store, select } from '@ngrx/store';
 import { Stanje } from './store/automobil.reducer';
-import { automobiliSelector, selectAutomobil } from './store/automobil.selector';
-import { Observable, Subscription, map, toArray } from 'rxjs';
+import { automobiliSelector, selectAutomobil, sortiraniAutomobiliSelector } from './store/automobil.selector';
+import { Observable, Subscription, filter, map, toArray } from 'rxjs';
 import { RezervisiService } from '../services/rezervisi.service';
-import { ActivatedRoute } from '@angular/router';
-import { inicijalizacija, ocisti } from './store/automobil.action';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { inicijalizacija, sortiranje, ocisti } from './store/automobil.action';
 
 @Component({
   selector: 'app-automobili',
@@ -14,15 +14,30 @@ import { inicijalizacija, ocisti } from './store/automobil.action';
   styleUrls: ['./automobili.component.css']
 })
 export class AutomobiliComponent implements OnInit {
-  automobili$ = this.store.pipe(select(automobiliSelector));//.select(selectAutomobil);
-  //automobili: Automobil[] = [];
-  //Sortiranje
+  automobili$ = this.store.pipe(select(automobiliSelector));
   imeAtributa: string = "";
   redosled: string = "";
   broj_dana: number = 0;
 
   constructor(private store: Store<Stanje>, private route: ActivatedRoute,
-              private rezervisiService: RezervisiService) {}
+              private rezervisiService: RezervisiService,
+              private router: Router) {
+                this.router.events
+                .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
+                .subscribe(event => {
+                  if (
+                    event.id === 1 &&
+                    event.url === event.urlAfterRedirects
+                  ) {
+                    const tip: any = sessionStorage.getItem("tip");
+                    const lokacija: any = sessionStorage.getItem("lokacija");
+                    const vreme_i = this.rezervisiService.vratiVremeIzdavanja();
+                    const vreme_v = this.rezervisiService.vratiVremeVracanja();
+              
+                    this.store.dispatch(inicijalizacija({tip, lokacija, vreme_i, vreme_v}));
+                  }
+                })
+              }
 
   ngOnInit() {
     const noviZahtev: boolean = this.rezervisiService.vratiNoviZahtev();
@@ -30,25 +45,14 @@ export class AutomobiliComponent implements OnInit {
     if(noviZahtev){
       this.store.dispatch(ocisti());
 
-      const tip = this.route.snapshot.params['tip'];
-      const lokacija = this.route.snapshot.params['lokacija'];
+      const tip: any = sessionStorage.getItem("tip");
+      const lokacija: any = sessionStorage.getItem("lokacija");
       const vreme_i = this.rezervisiService.vratiVremeIzdavanja();
       const vreme_v = this.rezervisiService.vratiVremeVracanja();
 
       this.store.dispatch(inicijalizacija({tip, lokacija, vreme_i, vreme_v}));
       this.rezervisiService.izmeniNoviZahtev();
     }
-    /*this.automobili$.subscribe({
-      next: (automobili: Automobil[]) => {
-        this.automobili = automobili;
-        console.log(this.automobili);
-      },
-      error: (response) => {
-        console.log(response);
-      }
-    })*/
-    this.imeAtributa = 'cena';
-    this.redosled = 'asc';
 
     const vreme_izdavanja = new Date(this.rezervisiService.vratiVremeIzdavanja());
     const vreme_vracanja = new Date(this.rezervisiService.vratiVremeVracanja());
@@ -65,32 +69,42 @@ export class AutomobiliComponent implements OnInit {
   }
 
   priSelekciji(vrednost: string | null){
-    //if(vrednost!=null){
     switch (vrednost) {
       case '0':{
-        this.imeAtributa='cena'
-        this.redosled='desc'
+        this.imeAtributa = "cena"
+        this.redosled = "desc"
         break;
       }
       case '1':{
-        this.imeAtributa='cena'
-        this.redosled='asc'
+        this.imeAtributa = "cena"
+        this.redosled = "asc"
         break;
       }
       case '2':{
-        this.imeAtributa='marka'
-        this.redosled='asc'
+        this.imeAtributa = "marka"
+        this.redosled = "asc"
         break;
       }
       case '3':{
-        this.imeAtributa='marka'
-        this.redosled='desc'
+        this.imeAtributa = "marka"
+        this.redosled = "desc"
+        break;
+      }
+      case '4':{
+        this.imeAtributa = "godiste"
+        this.redosled = "desc"
+        break;
+      }
+      case '5':{
+        this.imeAtributa = "godiste"
+        this.redosled = "asc"
         break;
       }
       default:{
         break;
       }
     }
-  //}
+    this.store.dispatch(sortiranje({atribut: this.imeAtributa, redosled: this.redosled}));
+    this.automobili$ = this.store.pipe(select(sortiraniAutomobiliSelector));
   }
 }

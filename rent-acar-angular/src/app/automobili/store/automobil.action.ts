@@ -18,3 +18,8 @@ export const pribavljanjeNijeUspelo = createAction(
 export const ocisti = createAction(
     '[Automobil] ocisti'
 )
+
+export const sortiranje = createAction(
+    '[Automobil] sortiranje',
+    props<{atribut: string, redosled: string}>()
+)

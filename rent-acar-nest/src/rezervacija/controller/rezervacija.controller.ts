@@ -35,8 +35,12 @@ export class RezervacijaController {
         return this.rezervacijaService.AzurirajRezervaciju(id, rezervacija);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('obrisi/:id')
-    ObrisiRezervaciju(@Param('id') id: string): Promise<any>{
-        return this.rezervacijaService.ObrisiRezervaciju(id);
+    ObrisiRezervaciju(@Request() req, @Param('id') id: string): Promise<any>{
+        if(req.user.role === true)
+            return this.rezervacijaService.ObrisiRezervaciju(id);
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 }

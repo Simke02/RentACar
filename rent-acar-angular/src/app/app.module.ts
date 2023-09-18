@@ -31,7 +31,9 @@ import { AdminGuard } from './guards/admin.guard';
 import { KorisnikoveRezervacijeComponent } from './korisnikove-rezervacije/korisnikove-rezervacije.component';
 import { SveRezervacijeComponent } from './sve-rezervacije/sve-rezervacije.component';
 import { ToastrModule } from 'ngx-toastr';
-import { NgToastModule } from 'ng-angular-popup';
+import { NgToastComponent, NgToastModule } from 'ng-angular-popup';
+import { SviAutomobiliComponent } from './svi-automobili/svi-automobili.component';
+import { AzurirajAutoComponent } from './azuriraj-auto/azuriraj-auto.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { NgToastModule } from 'ng-angular-popup';
     AzurirajKorisnikaComponent,
     AzurirajAdminaComponent,
     KorisnikoveRezervacijeComponent,
-    SveRezervacijeComponent
+    SveRezervacijeComponent,
+    SviAutomobiliComponent,
+    AzurirajAutoComponent
   ],
   imports: [
     BrowserModule,

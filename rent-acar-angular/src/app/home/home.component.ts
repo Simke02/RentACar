@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
       'vreme_v': new FormControl(this.sledeciDatum, Validators.required)
     });
 
-    this.homeService.ProcitajTipove()
+    this.homeService.ProcitajTipove("")
     .subscribe({
       next: (tipovi) => {
         for (const tip of tipovi.split(/[\r\n]+/)){
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
       }
     })
 
-    this.homeService.ProcitajLokacije()
+    this.homeService.ProcitajLokacije("")
     .subscribe({
       next: (lokacije) => {
         for (const lokacija of lokacije.split(/[\r\n]+/)){
@@ -80,11 +80,13 @@ export class HomeComponent implements OnInit {
     const vreme_i = this.pronadjiAutoForm.get('vreme_i')?.value;
     const vreme_v = this.pronadjiAutoForm.get('vreme_v')?.value;
 
+    sessionStorage.setItem("tip", tip);
+    sessionStorage.setItem("lokacija", lokacija);
     this.rezervisiService.sacuvajVremeIzdavanja(vreme_i);
     this.rezervisiService.sacuvajVremeVracanja(vreme_v)
 
     this.rezervisiService.sacuvajNoviZahtev();
-    this.router.navigate(['/automobili', tip, lokacija]);
+    this.router.navigate(['/automobili']);
   }
 
   promenaPocetka(){

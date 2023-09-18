@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgToastService } from 'ng-angular-popup';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-about',
@@ -12,7 +14,7 @@ export class AboutComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-
+    
   }
 
   pokreniKviz(){

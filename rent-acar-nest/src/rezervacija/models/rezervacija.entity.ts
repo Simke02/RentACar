@@ -17,6 +17,6 @@ export class Rezervacija{
     dodatno_osiguranje: boolean;
     @ManyToOne(() => Korisnik)
     korisnik: Korisnik;
-    @ManyToOne(() => Automobil)
+    @ManyToOne(() => Automobil, {onDelete: 'CASCADE'})
     automobil: Automobil;
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request, HttpException, HttpStatus } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { KorisnikService } from "../service/korisnik.service";
 import { KorisnikI } from "../models/korisnik.interface";
@@ -25,9 +25,13 @@ export class KorisnikController {
         return this.korisnikService.ObrisiKorisnika(email);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get()
-    VratiSveKorisnike(): Observable<KorisnikI[]> {
-        return this.korisnikService.VratiSveKorisnike();
+    VratiSveKorisnike(@Request() req): Observable<KorisnikI[]> {
+        if(req.user.role===true)
+            return this.korisnikService.VratiSveKorisnike();
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
 
     @Get('konkretan/:email')

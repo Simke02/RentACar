@@ -1,7 +1,7 @@
 <div class=" container  py-5 my-5">
     <h2 class=" text-center my-5">rezerviši <span class="text-primary"> auto </span> </h2>
 
-    <div class = "table-div"> <!-- Sredi css -->
+    <div class = "table-div">
         <table class = "table">
             <ng-container >
                 <thead>
@@ -14,7 +14,7 @@
                     <td>{{auto.marka}} {{auto.model}}</td>
                     <td>{{auto.godiste}}</td>
                     <td>{{auto.snaga_motora}}kW</td>
-                    <td>{{ukupna_cena}}</td> <!-- Pomnozi sa brojem dana -->
+                    <td>{{ukupna_cena}}</td>
                 </tbody>
             </ng-container>
         </table>
@@ -97,10 +97,10 @@
             </div>
           </div>
           <div class="form-group row sam-div">
-            <div class="col-sm-10 dugmad">
+            <div class="col-sm-10">
               <button [disabled]="!rezervacijaForm.valid"
-              type="submit" class="btn btn-outline-darker-pink">{{'Poruči'}}</button>
-              <button type="button" class="btn btn-outline-primary" (click)="odustani()">{{'Odustani'}}</button>
+              type="submit" class="btn btn-outline-primary dugme">{{'Poruči'}}</button>
+              <button type="button" class="btn btn-outline-warning" (click)="odustani()">{{'Odustani'}}</button>
             </div>
           </div>
         </form>

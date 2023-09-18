@@ -53,7 +53,7 @@ export class DodajAutoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.homeService.ProcitajTipove()
+    this.homeService.ProcitajTipove("")
     .subscribe({
       next: (tipovi) => {
         for (const tip of tipovi.split(/[\r\n]+/)){
@@ -65,7 +65,7 @@ export class DodajAutoComponent implements OnInit {
       }
     })
 
-    this.homeService.ProcitajLokacije()
+    this.homeService.ProcitajLokacije("")
     .subscribe({
       next: (lokacije) => {
         for (const lokacija of lokacije.split(/[\r\n]+/)){

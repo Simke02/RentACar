@@ -84,4 +84,32 @@ export class AutomobiliService {
             return automobili;
         }
     }
+
+    VratiSveAutomobile(token: string): Observable<Automobil[]>{
+        const httpOptions = {
+            headers: new HttpHeaders().set('Authorization', 'Bearer ' + token)
+        };
+        return this.http.get<Automobil[]>(environment.baseApiUrl+'/automobili/sve', httpOptions);
+    }
+
+    VratiAutomobil(token: string, id: number): Observable<Automobil>{
+        const httpOptions = {
+            headers: new HttpHeaders().set('Authorization', 'Bearer ' + token)
+        };
+        return this.http.get<Automobil>(environment.baseApiUrl+'/automobili/'+id, httpOptions);
+    }
+
+    AzurirajAutomobil(token: string, auto: Automobil): Observable<Automobil>{
+        const httpOptions = {
+            headers: new HttpHeaders().set('Authorization', 'Bearer ' + token)
+        };
+        return this.http.put<Automobil>(environment.baseApiUrl+'/automobili/azuriraj/'+auto.id, auto, httpOptions);
+    }
+
+    ObrisiAutomobil(id: number, token: string): Observable<any>{
+        const httpOptions = {
+            headers: new HttpHeaders().set('Authorization', 'Bearer ' + token)
+        };
+        return this.http.delete<any>(environment.baseApiUrl+'/automobili/obrisi/'+id, httpOptions);
+    }
 }

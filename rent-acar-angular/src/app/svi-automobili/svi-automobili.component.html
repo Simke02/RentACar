@@ -1,0 +1,32 @@
+<div class=" container  py-5 my-5">
+    <div class="table-div">
+        <table class="table">
+            <thead>
+                <td>ID</td>
+                <td>Marka</td>
+                <td>Model</td>
+                <td>Godište</td>
+                <td>Registracija</td>
+                <td>Cena</td>
+                <td>Dodatno osiguranje</td>
+                <td>Ažuriraj</td>
+                <td>Obriši</td>
+            </thead>
+            <tbody *ngFor="let auto of automobili; index as i">
+                <td>{{auto.id}}</td>
+                <td>{{auto.marka}}</td>
+                <td>{{auto.model}}</td>
+                <td>{{auto.godiste}}</td>
+                <td>{{auto.registracija}}</td>
+                <td>{{auto.cena}}</td>
+                <td>{{auto.dodatno_osiguranje}}</td>
+                <td>
+                    <button class="btn btn-outline-primary" [routerLink]="['/azuriraj-auto', auto.id]">Ažuriraj</button>
+                </td>
+                <td>
+                    <button class="btn btn-outline-primary" (click)="obrisi(i)">Obriši</button>
+                </td>
+            </tbody>
+        </table>
+    </div>
+</div>

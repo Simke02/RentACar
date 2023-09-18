@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { AutomobilService } from "../service/automobil.service";
 import { AutomobilI } from "../models/automobil.interface";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { Automobil } from "../models/automobil.entity";
 
 @Controller('automobili')
 export class AutomobilController {
@@ -46,6 +47,15 @@ export class AutomobilController {
     ObrisiAutomobil(@Request() req, @Param('id') id: string): Promise<any>{
         if(req.user.role===true)
             return this.automobilService.ObrisiAutomobil(id);
+        else
+            throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
+    VratiAutomobil(@Request() req, @Param('id') id: string): Observable<Automobil>{
+        if(req.user.role===true)
+            return this.automobilService.VratiAutomobil(id);
         else
             throw new HttpException('Niste autorizovani za ovu akciju', HttpStatus.FORBIDDEN);
     }
